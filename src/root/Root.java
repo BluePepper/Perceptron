@@ -15,7 +15,7 @@ public class Root {
 		
 		activatedCommands.add("exit");
 		
-		UserInterface ui = new UserInterface(activatedCommands, true);
+		UserInterface ui = new UserInterface(activatedCommands, false);
 		Thread t = new Thread(ui);
 		t.start();
 

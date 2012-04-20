@@ -1,5 +1,6 @@
 package de.thm.mni.nn.ui;
 
+import de.thm.mni.nn.model.DataStore;
 import de.thm.mni.nn.ui.actions.*;
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -16,6 +17,7 @@ public class UserInterface implements Runnable {
 
 	private boolean run = true;
 	private Map<String, IUIAction> commands = new HashMap<String, IUIAction>();
+	private DataStore ds = new DataStore();
 
 	
 	/**
@@ -40,8 +42,8 @@ public class UserInterface implements Runnable {
 				if (debug) { e.printStackTrace(); }
 			}
 			try {
-				action = (IUIAction) cl.getConstructor()
-						.newInstance();
+				action = (IUIAction) cl.getConstructor(DataStore.class)
+						.newInstance(ds);
 			} catch (IllegalArgumentException e) {
 				System.out.println("Command '" + cmd + "' could not be instantiated. Command not loaded!");
 				if (debug) { e.printStackTrace(); }
