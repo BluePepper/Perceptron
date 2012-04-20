@@ -9,6 +9,7 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 @SuppressWarnings("unused")
 public class UserInterface implements Runnable {
@@ -21,10 +22,11 @@ public class UserInterface implements Runnable {
 	 * The Constructor trys to instantiate a Object for every given Command Name.
 	 * If the instantiation is succesfull the command Name and the matching Object is saved in the 
 	 * commands HashMap.
-	 * @param activatedCommands
+	 * @param activatedCommands Command Name List
+	 * @param debug if debug is set to True a stackTrace is printed if anything goes wrong, otherwise the relating cmd is not loaded
 	 */
 	@SuppressWarnings("unchecked")
-	public UserInterface(List<String> activatedCommands) {
+	public UserInterface(List<String> activatedCommands, boolean debug) {
 		Iterator<String> it = activatedCommands.iterator();
 		while (it.hasNext()) {
 			String cmd = it.next();
@@ -34,23 +36,30 @@ public class UserInterface implements Runnable {
 			try {
 				cl = (Class<IUIAction>) Class.forName("de.thm.mni.nn.ui.actions.Action_" + cmd);
 			} catch (ClassNotFoundException e) {
-				e.printStackTrace();
+				System.out.println("Command '" + cmd + "' not Found. Command not loaded!");
+				if (debug) { e.printStackTrace(); }
 			}
 			try {
 				action = (IUIAction) cl.getConstructor()
 						.newInstance();
 			} catch (IllegalArgumentException e) {
-				e.printStackTrace();
+				System.out.println("Command '" + cmd + "' could not be instantiated. Command not loaded!");
+				if (debug) { e.printStackTrace(); }
 			} catch (SecurityException e) {
-				e.printStackTrace();
+				System.out.println("Command '" + cmd + "' could not be instantiated. Command not loaded!");
+				if (debug) { e.printStackTrace(); }
 			} catch (InstantiationException e) {
-				e.printStackTrace();
+				System.out.println("Command '" + cmd + "' could not be instantiated. Command not loaded!");
+				if (debug) { e.printStackTrace(); }
 			} catch (IllegalAccessException e) {
-				e.printStackTrace();
+				System.out.println("Command '" + cmd + "' could not be instantiated. Command not loaded!");
+				if (debug) { e.printStackTrace(); }
 			} catch (InvocationTargetException e) {
-				e.printStackTrace();
+				System.out.println("Command '" + cmd + "' could not be instantiated. Command not loaded!");
+				if (debug) { e.printStackTrace(); }
 			} catch (NoSuchMethodException e) {
-				e.printStackTrace();
+				System.out.println("Command '" + cmd + "' could not be instantiated. Command not loaded!");
+				if (debug) { e.printStackTrace(); }
 			}
 			// Add Command to the Command List
 			commands.put(cmd, action);
@@ -67,26 +76,78 @@ public class UserInterface implements Runnable {
 	@Override
 	public void run() {
 		String CurLine = ""; // Line read from standard in
+		String[] line = null;
+		String args = null;
+		String cmd = null;
 
-		System.out.println("Enter a line of text (type 'quit' to exit): ");
+		System.out.println("Neuronales Netz gestartet... Es sind folgende Kommandos aktiv:");
+		printCommandList(); // Geladene Kommandos ausgeben
+		
 		InputStreamReader converter = new InputStreamReader(System.in);
 		BufferedReader in = new BufferedReader(converter);
 
 		while (run) {
+			System.out.print("\n > ");
 			try {
 				CurLine = in.readLine();
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
 
-			if (!(CurLine.equals("quit"))) {
-				System.out.println("You typed: " + CurLine);
+			line = CurLine.split(" ", 2);
+			cmd = line[0];
+			if(line.length > 1) {
+				args = line[1];
 			}
+			
+			// search for command
+			IUIAction action = getObjectForCmd(cmd);
+			if (action != null) {
+				action.callAction(this, args);
+			} else {
+				printToConsole("Unknown Command: '" + cmd + "'");
+			}
+			
+			CurLine = "";
+			line = null;
+			cmd = null;
+			args = null;
 		}
 	}
 	
-	private getObjectForCmd(String cmd) {
-		
+	/**
+	 * Search for a given Command
+	 * prints an Error Message if the given Command could not be found
+	 * @param cmd
+	 */
+	private IUIAction getObjectForCmd(String cmd) {
+		for(Iterator<String> it = commands.keySet().iterator(); it.hasNext();) {
+			String actVal = it.next();
+			if(actVal.equalsIgnoreCase(cmd)) {
+				return commands.get(actVal);
+			}
+		}
+		return null;
+	}
+	
+	/**
+	 * Sends text to Console without newline!
+	 * BUT! A Newline is printed at the Start of the Loop.
+	 * @param text
+	 */
+	private void printToConsole(String text) {
+		System.out.print(text);
+	}
+	
+	/**
+	 * prints a List of all loaded Commands
+	 */
+	private void printCommandList() {
+		Set<String> cmds = commands.keySet();
+		for (Iterator<String> iterator = cmds.iterator(); iterator.hasNext();) {
+			printToConsole(iterator.next() + " ");
+		}
+		printToConsole("\n\n");
 	}
 	
 	/**
