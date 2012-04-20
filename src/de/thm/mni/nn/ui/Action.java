@@ -2,18 +2,14 @@ package de.thm.mni.nn.ui;
 
 import de.thm.mni.nn.model.DataStore;
 
-public class Action implements IUIAction {
+abstract public class Action implements IUIAction {
 
-	@SuppressWarnings("unused")
-	private DataStore ds = null;
+	protected DataStore ds = null;
+	protected UserInterface ui = null;
 	
-	public Action(DataStore ds) {
+	public Action(DataStore ds, UserInterface ui) {
 		this.ds = ds;
+		this.ui = ui;
 	}
-	
-	@Override
-	public void callAction(UserInterface ui, String args) {
-	}
-	
 
 }

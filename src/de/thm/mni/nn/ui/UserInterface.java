@@ -42,8 +42,8 @@ public class UserInterface implements Runnable {
 				if (debug) { e.printStackTrace(); }
 			}
 			try {
-				action = (IUIAction) cl.getConstructor(DataStore.class)
-						.newInstance(ds);
+				action = (IUIAction) cl.getConstructor(DataStore.class, UserInterface.class)
+						.newInstance(ds, this);
 			} catch (IllegalArgumentException e) {
 				System.out.println("Command '" + cmd + "' could not be instantiated. Command not loaded!");
 				if (debug) { e.printStackTrace(); }
@@ -105,7 +105,7 @@ public class UserInterface implements Runnable {
 			// search for command
 			IUIAction action = getObjectForCmd(cmd);
 			if (action != null) {
-				action.callAction(this, args);
+				action.callAction(args);
 			} else {
 				printToConsole("Unknown Command: '" + cmd + "'");
 			}
@@ -145,11 +145,14 @@ public class UserInterface implements Runnable {
 	 * prints a List of all loaded Commands
 	 */
 	private void printCommandList() {
-		Set<String> cmds = commands.keySet();
-		for (Iterator<String> iterator = cmds.iterator(); iterator.hasNext();) {
-			printToConsole(iterator.next() + " ");
+		Iterator<String> it = commands.keySet().iterator();
+		while(it.hasNext()) {
+			String actVal = it.next();
+			printToConsole(actVal);
+			printToConsole(" - ");
+			printToConsole(commands.get(actVal).getDescription() + "\n");
 		}
-		printToConsole("\n\n");
+		printToConsole("\n");
 	}
 	
 	/**

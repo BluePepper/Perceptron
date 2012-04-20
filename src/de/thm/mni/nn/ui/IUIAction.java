@@ -11,5 +11,6 @@ public interface IUIAction {
 	 * The returned String is displayed on the Commandline
 	 * @return response String
 	 */
-	void callAction(UserInterface ui, String args);
+	void callAction(String args);
+	String getDescription();
 }

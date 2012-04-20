@@ -4,21 +4,25 @@ import de.thm.mni.nn.model.DataStore;
 import de.thm.mni.nn.ui.Action;
 import de.thm.mni.nn.ui.UserInterface;
 
-public class Action_exit extends Action {
-	
-	public Action_exit(DataStore ds, UserInterface ui) {
+/**
+ * The Load Action is used to load a predefined set of Perceptrons, Neurons, ...
+ *
+ */
+public class Action_load extends Action {
+
+	public Action_load(DataStore ds, UserInterface ui) {
 		super(ds, ui);
 	}
-
-	@Override
+	
 	public void callAction(String args) {
-		System.out.println("Exiting...");
-		ui.stop();
+		
 	}
 
 	@Override
 	public String getDescription() {
-		return "Exits the Program.";
+		return "Loads a Preset of an Neuronal Net";
 	}
+
+
 
 }

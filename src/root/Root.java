@@ -14,8 +14,9 @@ public class Root {
 		List<String> activatedCommands = new ArrayList<String>();
 		
 		activatedCommands.add("exit");
+		activatedCommands.add("load");
 		
-		UserInterface ui = new UserInterface(activatedCommands, false);
+		UserInterface ui = new UserInterface(activatedCommands, true);
 		Thread t = new Thread(ui);
 		t.start();
 
