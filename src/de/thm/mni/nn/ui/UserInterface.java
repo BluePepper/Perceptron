@@ -28,6 +28,7 @@ public class UserInterface implements Runnable {
 		Iterator<String> it = activatedCommands.iterator();
 		while (it.hasNext()) {
 			String cmd = it.next();
+			cmd = cmd.toLowerCase(); // Command Names always lc
 			Class<IUIAction> cl = null;
 			IUIAction action = null;
 			try {
@@ -39,24 +40,19 @@ public class UserInterface implements Runnable {
 				action = (IUIAction) cl.getConstructor()
 						.newInstance();
 			} catch (IllegalArgumentException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			} catch (SecurityException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			} catch (InstantiationException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			} catch (IllegalAccessException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			} catch (InvocationTargetException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			} catch (NoSuchMethodException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
+			// Add Command to the Command List
 			commands.put(cmd, action);
 
 		}
@@ -80,7 +76,6 @@ public class UserInterface implements Runnable {
 			try {
 				CurLine = in.readLine();
 			} catch (IOException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 
@@ -88,6 +83,10 @@ public class UserInterface implements Runnable {
 				System.out.println("You typed: " + CurLine);
 			}
 		}
+	}
+	
+	private getObjectForCmd(String cmd) {
+		
 	}
 	
 	/**
