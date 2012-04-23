@@ -30,7 +30,6 @@ public class Neuron {
 	 * Layer number inside of the Perceptron.
 	 */
 	private int layer;
-	
 
 	/**
 	 * Getter-Method for the Activation-Function used by the Neuron.
@@ -68,9 +67,14 @@ public class Neuron {
 	}
 	// CLASS-METHODS
 	
+
 	// INSTANCE-METHODS
-	
-	
+
+
+	public void propagate() {
+		
+	}
+
 	
 	
 }
