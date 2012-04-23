@@ -20,7 +20,6 @@ public class Action_load extends Action {
 		} else {
 			ui.printToConsole("Preset " + args + " could not be found!");
 		}
-		
 	}
 
 	@Override
