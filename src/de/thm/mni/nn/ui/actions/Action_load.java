@@ -15,6 +15,11 @@ public class Action_load extends Action {
 	}
 	
 	public void callAction(String args) {
+		if (args.equalsIgnoreCase("NeuNet")) {
+			ui.printToConsole("Loading NeuNet...");
+		} else {
+			ui.printToConsole("Preset " + args + " could not be found!");
+		}
 		
 	}
 

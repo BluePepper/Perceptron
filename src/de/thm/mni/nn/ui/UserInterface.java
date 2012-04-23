@@ -137,7 +137,7 @@ public class UserInterface implements Runnable {
 	 * BUT! A Newline is printed at the Start of the Loop.
 	 * @param text
 	 */
-	private void printToConsole(String text) {
+	public void printToConsole(String text) {
 		System.out.print(text);
 	}
 	
