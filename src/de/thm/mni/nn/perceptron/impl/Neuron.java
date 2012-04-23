@@ -1,5 +1,8 @@
 package de.thm.mni.nn.perceptron.impl;
 
+import java.util.ArrayList;
+import java.util.List;
+
 
 /**
  * Class representing a Neuron in a Neuronal Network.
@@ -10,6 +13,12 @@ public class Neuron {
 	//CLASS VARIABLES
 	
 	//INSTANCE VARIABLES
+	
+	/**
+	 * List all Denderites the Neuron is connected to. Needs to be filled when New
+	 */
+	private ArrayList<Axon> incomingDendrites;
+	
 	/**
 	 * Activation Function used by the Neuron.
 	 */
@@ -23,7 +32,6 @@ public class Neuron {
 	/**
 	 * Perceptron the Neuron lives in. 
 	 */
-	
 	private Perceptron myPerceptron;
 	
 	/**
@@ -63,14 +71,30 @@ public class Neuron {
 		this.neuronType = neuronType;
 		this.myPerceptron = myPerceptron;
 		this.layer = layer;
+		this.incomingDendrites = new ArrayList<Axon>() ;
 		// Add neuron to Perceptrons Neuron-List
 	}
 	// CLASS-METHODS
 	
 
 	// INSTANCE-METHODS
+	/**
+	 * Inserts an Axon to the List of the Neurons incoming Dendrites.
+	 * @param toConnect The Axon that should be connected to the Neuron
+	 * @return TRUE when Axon was inserted, FALSE when Axon is already connected to 
+	 * the Neuron.
+	 */
+	public Boolean connectNewDendrite(Axon toConnect){
+		if (!incomingDendrites.contains(toConnect)){
+		incomingDendrites.add(toConnect);
+		return true;
+		}
+		return false;
+	}
 
-
+	/**
+	 * 
+	 */
 	public void propagate() {
 		
 	}
