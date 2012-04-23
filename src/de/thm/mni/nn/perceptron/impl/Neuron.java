@@ -6,10 +6,12 @@ public class Neuron {
 	
 	private EActivationFunction activationFunction;
 	private ENeuronType neuronType;
+	private Perceptron myPerceptron;
 	
-	public Neuron(EActivationFunction activationFunction, ENeuronType neuronType) {
+	public Neuron(EActivationFunction activationFunction, ENeuronType neuronType, Perceptron myPerceptron) {
 		this.activationFunction = activationFunction;
 		this.neuronType = neuronType;
+		this.myPerceptron = myPerceptron;
 	}
 
 	/**
