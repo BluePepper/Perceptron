@@ -13,6 +13,10 @@ public class Neuron {
 		this.neuronType = neuronType;
 		this.myPerceptron = myPerceptron;
 	}
+	
+	public void propagate() {
+		
+	}
 
 	/**
 	 * @return the activationFunction
