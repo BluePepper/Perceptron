@@ -3,7 +3,7 @@ package de.thm.mni.nn.perceptron.impl;
 /**
  * Axon Representation for a Neuronal Network.
  * Training is implemented inside of this class.
- * @author Marcel Walden
+ * @author Tobias Knoth
  *
  */
 public class Axon {
