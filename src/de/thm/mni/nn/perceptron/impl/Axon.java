@@ -38,7 +38,7 @@ public class Axon {
 	}
 	
 /**
- * Sets the acutal Weight of the Neuron
+ * Sets the actual Weight of the Axon
  * @param weight Weight to set.
  */
 	private void setWeight(double weight) {
@@ -48,13 +48,27 @@ public class Axon {
 	// CONSTRUCTORS
 	
 	/**
-	 * Constructor requiring two Neurons.
+	 * Constructor requiring two Neurons and the weight of the connection.
 	 * @param Start Source-Neuron of the Axon.
 	 * @param End Target-Neuron of the Axon.
+	 * @param weight Weight of the Axon.
 	 */
-	public Axon(Neuron Start, Neuron End){
+	public Axon(Neuron Start, Neuron End, double weight){
 		this.Source = Start;
 		this.Target = End;
+		this.weight = weight;
+	}
+	
+	/**
+	 * Calculates the new weight of the Axon by using the specified Training
+	 * Function
+	 * 
+	 * @return Functionvalue of the Training Function.
+	 */
+	
+	public double trainWeight() {
+		throw new UnsupportedOperationException(
+				"Calculation of Weight not yet implemented");
 	}
 	
 }
