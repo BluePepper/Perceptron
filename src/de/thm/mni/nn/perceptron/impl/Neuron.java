@@ -10,13 +10,22 @@ import java.util.List;
  */
 public class Neuron {
 
-	// CLASS VARIABLES
+	// CLASS VARIABLES *****************************************************************************************
 
-	// INSTANCE VARIABLES
+	// INSTANCE VARIABLES *****************************************************************************************
+	/**
+	 * Defines the Activationvalue of the Neuron. This is used when the Neuron
+	 * is of Type Input.
+	 */
+	private double activationValue;
 
 	/**
-	 * List all Denderites the Neuron is connected to. Needs to be filled when
-	 * New
+	 * The net_input value specifies the incoming Signals of all connected
+	 * Dendrites
+	 */
+	private double net_input;
+	/**
+	 * List of all Dendrites the Neuron is connected to.
 	 */
 	private ArrayList<Axon> incomingDendrites;
 
@@ -41,12 +50,6 @@ public class Neuron {
 	private int layer;
 
 	/**
-	 * Represents the Activation State of the Neuron. TRUE means the Neuron is
-	 * activated, FALSE means it's not.
-	 */
-	private boolean activationState;
-
-	/**
 	 * Getter-Method for the Activation-Function used by the Neuron.
 	 * 
 	 * @return the activationFunction
@@ -64,7 +67,7 @@ public class Neuron {
 		return neuronType;
 	}
 
-	// CONSTRUCTORS
+	// CONSTRUCTORS *****************************************************************************************
 
 	/**
 	 * Constructor to be used for creating new Neurons. Adds the new Neuron to
@@ -90,9 +93,57 @@ public class Neuron {
 		// Add neuron to Perceptrons Neuron-List
 	}
 
-	// CLASS-METHODS
+	// CLASS-METHODS  *****************************************************************************************
 
-	// INSTANCE-METHODS
+	// INSTANCE-METHODS PRIVATE *****************************************************************************************
+	
+	/**
+	 * Calculates the output of the Neuron by using the specified Activation
+	 * Function
+	 * 
+	 * @return Functionvalue of the Activation Function.
+	 */
+	private double calculateOutput() {
+		if (this.neuronType == ENeuronType.Input) {
+			return this.activationValue;
+		}
+		calculateNetInput();
+		if (this.activationFunction == EActivationFunction.Identity) {
+			return net_input;
+		}
+		return 0.00;
+	}
+
+	/**
+	 * Calculates the Network Input of the Neuron by iterating over the
+	 * Dendrites.
+	 */
+	private void calculateNetInput() {
+		this.net_input = 0.0;
+		for (Axon ax : incomingDendrites) {
+			net_input += (ax.getWeight() * ax.getSource().getActivationValue());
+		}
+	}
+	
+	/**
+	 * Returns the Activation Value of this Neuron.
+	 * 
+	 * @return This Neurons Activation Value.
+	 */
+	private double getActivationValue() {
+		return this.activationValue;
+	}
+	
+	// INSTANCE-METHODS PUBLIC *****************************************************************************************
+
+	/**
+	 * Returns the Neurons Layer in the Neuronal Network.
+	 * @return Layer in the Neuronal Network.
+	 */
+	public int getLayer(){
+		return this.layer;
+	}
+	
 	/**
 	 * Inserts an Axon to the List of the Neurons incoming Dendrites.
 	 * 
@@ -110,25 +161,19 @@ public class Neuron {
 	}
 
 	/**
-	 * Calculates the output of the Neuron by using the specified Activation
-	 * Function
-	 * 
-	 * @return Functionvalue of the Activation Function.
+	 * Calculates the Propagation for this Neuron. Uses the sum over all
+	 * Products between Axons Starting Point and the Axons Weight.
 	 */
-	public double calculateOutput() {
-		throw new UnsupportedOperationException(
-				"Calculation of Output not yet implemented");
+	public void propagateMe() {
+		this.activationValue = this.calculateOutput();
 	}
 
 	/**
-	 * Calculates the Propagation for this Neuron. Uses the sum over all
-	 * Products between Axons Starting Point and the Axons Weight.
-	 * 
-	 * @return Functionvalue of the Propagation of this Neuron
+	 * Training Method for the Neuron.
 	 */
-	public double propagateMe() {
+	public void doTraining() {
 		throw new UnsupportedOperationException(
-				"Propagation not yet implemented");
+				"Training Method not yet implemented");
 	}
 
 }
