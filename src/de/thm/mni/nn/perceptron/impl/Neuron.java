@@ -68,12 +68,9 @@ public class Neuron {
 	 *            The Activation Function used by the Neuron.
 	 * @param neuronType
 	 *            Specifies the Type of the Neuron (INPUT, OUTPUT, HIDDEN)
-	 * @param layer
-	 *            The Number of the Layer in which the Neuron lives inside of
-	 *            the Perceptron.
 	 */
 	public Neuron(EActivationFunction activationFunction,
-			ENeuronType neuronType, int layer) {
+			ENeuronType neuronType) {
 		this.activationFunction = activationFunction;
 		this.neuronType = neuronType;
 
