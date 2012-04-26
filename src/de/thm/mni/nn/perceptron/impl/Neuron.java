@@ -148,9 +148,20 @@ public class Neuron {
 	/**
 	 * Training Method for the Neuron.
 	 */
-	public void doTraining() {
-		throw new UnsupportedOperationException(
-				"Training Method not yet implemented");
+	public double doTraining(double teaching_input) {
+		if (this.activationFunction == EActivationFunction.Identity){
+			return (teaching_input - activationValue);
+		}
+		throw new UnsupportedOperationException("Activation Function not Found!");
+	}
+	
+	/**
+	 * Returns all Axons that are connected as Dendrites to the Neuron
+	 * @return An Array containing all the Dendrites connected to the Neuron.
+	 */
+	public Axon[] getMyDendrites()
+	{
+		return (Axon[])this.incomingDendrites.toArray();
 	}
 
 }
