@@ -15,18 +15,17 @@ public class Perceptron {
 	List<List<Neuron>> neurons = new ArrayList<List<Neuron>>();
 	
 	/**
-	 * Standard Constructor
+	 * Constructs a new Perceptron with the given number of Layers
 	 * @param layers The number of Layers
 	 */
 	public Perceptron(Integer layers) {
 		for (int i = 0; i < layers; i++) {
 			neurons.add(new ArrayList<Neuron>());
-			System.out.println("Adding ..." + i);
 		}
 	}
 	
 	/**
-	 * Returns the number of LAyers in this Perceptron
+	 * Returns the number of Layers in this Perceptron
 	 * @return number of Layers
 	 */
 	public Integer getLayerCount() {

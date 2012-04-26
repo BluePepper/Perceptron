@@ -21,8 +21,9 @@ public class Action_load extends Action {
 		if (args.equalsIgnoreCase("NeuNet")) {
 			ui.printToConsole("Loading NeuNet...");
 			Perceptron perc = new Perceptron(3);
-			perc.addNeuron(3, 2, ENeuronType.Input, EActivationFunction.Identity);
-			perc.addNeuron(3, 5, ENeuronType.Input, EActivationFunction.Identity);
+			perc.addNeuron(0, 2, ENeuronType.Input, EActivationFunction.Identity);
+			perc.addNeuron(2, 5, ENeuronType.Hidden, EActivationFunction.Identity);
+			perc.addNeuron(2, 3, ENeuronType.Output, EActivationFunction.Identity);
 			
 		} else {
 			ui.printToConsole("Preset " + args + " could not be found!");
