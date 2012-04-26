@@ -25,7 +25,7 @@ public class Perceptron {
 		}
 		for (int i = 1; i < count; i++) {
 			Integer actElementCount = this.neurons[layer].length;
-			this.neurons[layer][(actElementCount-1)+i] = new Neuron(activationFunction, type, layer);
+			this.neurons[layer][(actElementCount-1)+i] = new Neuron(activationFunction, type);
 		}
 	}
 	
