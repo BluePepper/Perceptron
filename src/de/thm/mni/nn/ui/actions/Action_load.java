@@ -1,6 +1,9 @@
 package de.thm.mni.nn.ui.actions;
 
 import de.thm.mni.nn.model.DataStore;
+import de.thm.mni.nn.perceptron.impl.EActivationFunction;
+import de.thm.mni.nn.perceptron.impl.ENeuronType;
+import de.thm.mni.nn.perceptron.impl.Perceptron;
 import de.thm.mni.nn.ui.Action;
 import de.thm.mni.nn.ui.UserInterface;
 
@@ -17,6 +20,10 @@ public class Action_load extends Action {
 	public void callAction(String args) {
 		if (args.equalsIgnoreCase("NeuNet")) {
 			ui.printToConsole("Loading NeuNet...");
+			Perceptron perc = new Perceptron(3);
+			perc.addNeuron(3, 2, ENeuronType.Input, EActivationFunction.Identity);
+			perc.addNeuron(3, 5, ENeuronType.Input, EActivationFunction.Identity);
+			
 		} else {
 			ui.printToConsole("Preset " + args + " could not be found!");
 		}
