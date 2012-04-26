@@ -1,7 +1,7 @@
 package de.thm.mni.nn.perceptron.impl;
 
 import java.util.ArrayList;
-import java.util.List;
+
 
 /**
  * Class representing a Neuron in a Neuronal Network.
@@ -39,15 +39,6 @@ public class Neuron {
 	 */
 	private ENeuronType neuronType;
 
-	/**
-	 * Perceptron the Neuron lives in.
-	 */
-	private Perceptron myPerceptron;
-
-	/**
-	 * Layer number inside of the Perceptron.
-	 */
-	private int layer;
 
 	/**
 	 * Getter-Method for the Activation-Function used by the Neuron.
@@ -77,18 +68,15 @@ public class Neuron {
 	 *            The Activation Function used by the Neuron.
 	 * @param neuronType
 	 *            Specifies the Type of the Neuron (INPUT, OUTPUT, HIDDEN)
-	 * @param myPerceptron
-	 *            The Perceptron in which the Neuron "lives" in.
 	 * @param layer
 	 *            The Number of the Layer in which the Neuron lives inside of
 	 *            the Perceptron.
 	 */
 	public Neuron(EActivationFunction activationFunction,
-			ENeuronType neuronType, Perceptron myPerceptron, int layer) {
+			ENeuronType neuronType, int layer) {
 		this.activationFunction = activationFunction;
 		this.neuronType = neuronType;
-		this.myPerceptron = myPerceptron;
-		this.layer = layer;
+
 		this.incomingDendrites = new ArrayList<Axon>();
 		// Add neuron to Perceptrons Neuron-List
 	}
@@ -135,14 +123,6 @@ public class Neuron {
 	}
 	
 	// INSTANCE-METHODS PUBLIC *****************************************************************************************
-
-	/**
-	 * Returns the Neurons Layer in the Neuronal Network.
-	 * @return Layer in the Neuronal Network.
-	 */
-	public int getLayer(){
-		return this.layer;
-	}
 	
 	/**
 	 * Inserts an Axon to the List of the Neurons incoming Dendrites.
