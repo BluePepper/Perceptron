@@ -11,12 +11,12 @@ public class Axon {
 	/**
 	 * Source Neuron of this Axon
 	 */
-	private Neuron Source;
+	private Neuron source;
 
 	/**
 	 * Target Neuron of the Axon
 	 */
-	private Neuron Target;
+	private Neuron target;
 
 	/**
 	 * Actual Weight of the Axon
@@ -33,10 +33,20 @@ public class Axon {
 	/**
 	 * Returns the Source Neuron of the Axon.
 	 * 
-	 * @return The Axons Neuron.
+	 * @return The Axons Source Neuron.
 	 */
 	public Neuron getSource() {
-		return Source;
+		return source;
+	}
+	
+	/**
+	 * Sets the Source Neuron of the Axon.
+	 * 
+	 * @param source 
+	 * 				The source of the Axon.
+	 */
+	private void setSource(Neuron source) {
+		this.source = source;
 	}
 
 	/**
@@ -57,23 +67,56 @@ public class Axon {
 	public void setWeight(double weight) {
 		this.weight = weight;
 	}
+	
+	/**
+	 * Returns the Target Neuron of the Axon.
+	 * 
+	 * @return The Axons Target Neuron.
+	 */
+	
+	public Neuron getTarget() {
+		return target;
+	}
+
+	/**
+	 * Sets the target Neuron of the Axon.
+	 * 
+	 * @param target The target of the Axon.
+	 */
+	
+	private void setTarget(Neuron target) {
+		this.target = target;
+	}
 
 	// CONSTRUCTORS
 
 	/**
 	 * Constructor requiring two Neurons and the weight of the connection.
 	 * 
-	 * @param Start
+	 * @param source
 	 *            Source-Neuron of the Axon.
-	 * @param End
+	 * @param target
 	 *            Target-Neuron of the Axon.
 	 * @param weight
 	 *            Weight of the Axon.
 	 */
-	public Axon(Neuron Start, Neuron End, double weight) {
-		this.Source = Start;
-		this.Target = End;
-		this.weight = weight;
+	public Axon(Neuron source, Neuron target) {
+		this.setSource(source);
+		this.setTarget(target);
+	}
+	/**
+	 * Calculates the initial weight of the Axon and rounds 
+	 * the number to three decimal places
+	 * 
+	 * @param seedMin
+	 * 				Minimal value of the random double number
+	 * @param seedMax
+	 * 				Maximal value of the random double number
+	 */
+	
+	public void setRandonWeight(double seedMin, double seedMax) {
+		double randomValue = Math.random() * ((seedMax - seedMin) + 1) + seedMin;
+		this.weight = Math.round(randomValue*1000)/1000d;	
 	}
 
 	/**
