@@ -39,7 +39,6 @@ public class Neuron {
 	 */
 	private ENeuronType neuronType;
 
-
 	/**
 	 * Getter-Method for the Activation-Function used by the Neuron.
 	 * 
@@ -84,8 +83,11 @@ public class Neuron {
 	
 	/**
 	 * Calculates the output of the Neuron by using the specified Activation
-	 * Function
-	 * 
+	 * Function. 
+	 * All of the Activationfunctions are specified here.
+	 * If a not supported Function is chosen
+	 * @throws UnsupportedOperationException
+	 * 				The UnsupportedOperationExeption is thrown when a not implemented Activationfunction is used.
 	 * @return Functionvalue of the Activation Function.
 	 */
 	private double calculateOutput() {
@@ -147,6 +149,9 @@ public class Neuron {
 
 	/**
 	 * Training Method for the Neuron.
+	 * @throws UnsupportedOperationException
+	 * 				The UnsupportedOperationExeption is thrown when a not implemented Activationfunction is used.
+	 * @return Double Value that is defines the Training Value (Will be corrected later...)
 	 */
 	public double doTraining(double teaching_input) {
 		if (this.activationFunction == EActivationFunction.Identity){
