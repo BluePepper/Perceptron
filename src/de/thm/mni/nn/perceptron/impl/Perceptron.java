@@ -1,6 +1,7 @@
 package de.thm.mni.nn.perceptron.impl;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 
@@ -69,7 +70,7 @@ public class Perceptron {
 	}
 	
 	/**
-	 * 
+	 * Adds a Axon to the Perceptron. The Start and End-Neuron is identificated by the Layer and the Column of the Neuron
 	 * @param startNeuronLayer
 	 * @param startNeuronColumn
 	 * @param endNeuronLayer
@@ -82,6 +83,21 @@ public class Perceptron {
 		Neuron startNeuron = neurons.get(startNeuronLayer).get(startNeuronColumn);
 		Neuron endNeuron = neurons.get(endNeuronLayer).get(endNeuronColumn);
 		new Axon(startNeuron, endNeuron, this.seedmin, this.seedmax); // the Connection between endNeuron an Axon is handled in the Axon Constructor
+	}
+	
+	
+	public void propagate() {
+		// start propagate by loop over the inputNeurons
+		List<Neuron> inputNeurons = neurons.get(0);
+		for (Neuron neuron : inputNeurons) {
+			neuron.propagateMe();
+		}
+		
+		// get result by looping over OutputNeurons
+		List<Neuron> outputNeurons = neurons.get(neurons.size()-1);
+		for (Neuron neuron : outputNeurons) {
+			System.out.println("output Value: ");
+		}
 	}
 	
 	
