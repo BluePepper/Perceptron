@@ -1,8 +1,6 @@
 package de.thm.mni.nn.model;
 
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 import de.thm.mni.nn.perceptron.impl.Perceptron;
