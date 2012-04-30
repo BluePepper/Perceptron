@@ -100,9 +100,11 @@ public class Axon {
 	 * @param weight
 	 *            Weight of the Axon.
 	 */
-	public Axon(Neuron source, Neuron target) {
+	public Axon(Neuron source, Neuron target, double seedmin, double seedmax) {
 		this.setSource(source);
 		this.setTarget(target);
+		setRandonWeight(seedmin, seedmax);
+		target.connectNewDendrite(this);
 	}
 	/**
 	 * Calculates the initial weight of the Axon and rounds 
