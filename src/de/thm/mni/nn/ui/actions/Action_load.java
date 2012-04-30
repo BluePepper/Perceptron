@@ -20,10 +20,15 @@ public class Action_load extends Action {
 	public void callAction(String args) {
 		if (args.equalsIgnoreCase("NeuNet")) {
 			ui.printToConsole("Loading NeuNet...");
-			Perceptron perc = new Perceptron(3);
+			Perceptron perc = new Perceptron(2);
 			perc.addNeuron(0, 2, ENeuronType.Input, EActivationFunction.Identity);
-			perc.addNeuron(2, 5, ENeuronType.Hidden, EActivationFunction.Identity);
-			perc.addNeuron(2, 3, ENeuronType.Output, EActivationFunction.Identity);
+			perc.addNeuron(1, 1, ENeuronType.Output, EActivationFunction.Identity);
+			perc.addAxon(0, 0, 1, 0);
+			perc.addAxon(0, 1, 1, 0);
+			
+			
+			
+			perc.propagate();
 			
 		} else {
 			ui.printToConsole("Preset " + args + " could not be found!");

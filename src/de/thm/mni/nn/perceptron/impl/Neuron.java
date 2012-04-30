@@ -17,7 +17,7 @@ public class Neuron {
 	 * Defines the Activationvalue of the Neuron. This is used when the Neuron
 	 * is of Type Input.
 	 */
-	private double activationValue;
+	private double activationValue = 1.0;
 
 	/**
 	 * The net_input value specifies the incoming Signals of all connected
@@ -148,6 +148,7 @@ public class Neuron {
 	 */
 	public void propagateMe() {
 		this.activationValue = this.calculateOutput();
+		System.out.println("My Activation Value: " + this.activationValue);
 	}
 
 	/**

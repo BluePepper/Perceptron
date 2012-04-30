@@ -64,7 +64,7 @@ public class Perceptron {
 		if (layer >= neurons.size()) {
 			throw new IndexOutOfBoundsException("This Perceptron stores only " + (neurons.size()) + " Layers!");
 		}
-		for (int i = 1; i < count; i++) {
+		for (int i = 0; i < count; i++) {
 			this.neurons.get(layer).add(new Neuron(activationFunction, type));
 		}
 	}
@@ -87,16 +87,16 @@ public class Perceptron {
 	
 	
 	public void propagate() {
-		// start propagate by loop over the inputNeurons
-		List<Neuron> inputNeurons = neurons.get(0);
-		for (Neuron neuron : inputNeurons) {
-			neuron.propagateMe();
-		}
 		
+		for (int i = 1; i < neurons.size(); i++) {
+			for (Neuron neuron : neurons.get(i)) {
+				neuron.propagateMe();
+			}
+		}		
 		// get result by looping over OutputNeurons
 		List<Neuron> outputNeurons = neurons.get(neurons.size()-1);
 		for (Neuron neuron : outputNeurons) {
-			System.out.println("output Value: ");
+			System.out.println("output Value: " + neuron.getActivationValue());
 		}
 	}
 	
