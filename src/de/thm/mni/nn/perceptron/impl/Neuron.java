@@ -24,6 +24,7 @@ public class Neuron {
 	 * Dendrites
 	 */
 	private double net_input;
+	
 	/**
 	 * List of all Dendrites the Neuron is connected to.
 	 */
@@ -112,16 +113,18 @@ public class Neuron {
 		}
 	}
 	
+
+	
+	// INSTANCE-METHODS PUBLIC *****************************************************************************************
+
 	/**
 	 * Returns the Activation Value of this Neuron.
 	 * 
 	 * @return This Neurons Activation Value.
 	 */
-	private double getActivationValue() {
+	public double getActivationValue() {
 		return this.activationValue;
 	}
-	
-	// INSTANCE-METHODS PUBLIC *****************************************************************************************
 	
 	/**
 	 * Inserts an Axon to the List of the Neurons incoming Dendrites.
