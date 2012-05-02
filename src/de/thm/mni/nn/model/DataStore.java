@@ -35,6 +35,20 @@ public class DataStore {
 	}
 	
 	/**
+	 * Get a Perceptron from the DataStore
+	 * @param name the Name of the saved Perceptron
+	 * @return Returns the Perceptron. If the Name could not be found null is returned
+	 */
+	public Perceptron getPerceptron(String name) {
+		for (String a : perceptrons.keySet()) {
+			if (name.equalsIgnoreCase(a)) {
+				return perceptrons.get(a);
+			}
+		}	
+		return null;
+	}
+	
+	/**
 	 * Adds a Pattern to the Datastore.
 	 * @param name the name of the Pattern
 	 * @param perceptron The Pattern Object
