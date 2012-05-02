@@ -27,7 +27,7 @@ public class Pattern {
 	}
 	
 	/**
-	 * Adds the optional Output Pattern in the same way the InputPattern was set in the Contructor.
+	 * Adds the optional Output Pattern in the same way the InputPattern was set in the Constructor.
 	 * This is need to use the Pattern for Training
 	 * @param outputPattern This Boolean Array defines which OutputNeuron should be 1 or 0
 	 */
