@@ -1,7 +1,6 @@
 package de.thm.mni.nn.perceptron.impl;
 
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 
 
@@ -85,7 +84,9 @@ public class Perceptron {
 		new Axon(startNeuron, endNeuron, this.seedmin, this.seedmax); // the Connection between endNeuron an Axon is handled in the Axon Constructor
 	}
 	
-	
+	/**
+	 * 
+	 */
 	public void propagate() {
 		
 		for (int i = 1; i < neurons.size(); i++) {
