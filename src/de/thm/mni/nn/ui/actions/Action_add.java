@@ -17,7 +17,7 @@ import de.thm.mni.nn.ui.UserInterface;
  */
 public class Action_add extends Action {
 
-	Scanner in = new Scanner(System.in);
+	
 
 	public Action_add(DataStore ds, UserInterface ui) {
 		super(ds, ui);
@@ -34,16 +34,16 @@ public class Action_add extends Action {
 			int perceptronLayer;
 
 			System.out.print("Name of perceptron: ");
-			perceptronName = this.inputToString();
+			perceptronName = ui.inputToString();
 
 			System.out.print("Number of layers: ");
-			perceptronLayer = this.inputToInt();
+			perceptronLayer = ui.inputToInt();
 
 			System.out.println("Choose an initial axon weight: [1/2]");
 			System.out.println("\t 1. Random axon weights between 0 and 1");
 			System.out.println("\t 2. Customized upper and lower boundary");
 			//Choose between initial random weights and custom random weights
-			switch (this.inputToInt()) {
+			switch (ui.inputToInt()) {
 			case 1:
 				//Proof if the given perceptron name is the same as in the datastore
 				if (ds.addPerceptron(perceptronName, new Perceptron(perceptronLayer))) {
@@ -56,10 +56,10 @@ public class Action_add extends Action {
 				double minSeed, maxSeed;
 
 				System.out.print("The lower boundary of the axon weight: ");
-				minSeed = this.inputToDouble();
+				minSeed = ui.inputToDouble();
 
 				System.out.print("The upper boundary of the axon weight: ");
-				maxSeed = this.inputToDouble();
+				maxSeed = ui.inputToDouble();
 				//Proof if the given perceptron name is the same as in the datastore
 				if (ds.addPerceptron(perceptronName, new Perceptron(perceptronLayer, minSeed, maxSeed))) {
 					System.out.println("Added the given perceptron");
@@ -77,30 +77,29 @@ public class Action_add extends Action {
 			EActivationFunction actFunc = null;
 
 			System.out.print("Adding the neurons to this perceptron: ");
-			perceptronName = this.inputToString();
+			perceptronName = ui.inputToString();
 
 			System.out.print("Adding neuron to the following layer: ");
-			layerRow = this.inputToInt();
+			layerRow = ui.inputToInt();
 
 			System.out.print("Number of neurons to add: ");
-			numberOfNeurons = this.inputToInt();
+			numberOfNeurons = ui.inputToInt();
 
 			System.out.println("Choose an neuron type: [1/2/3]");
 			System.out.println("\t 1. Input\n\t 2. Hidden\n\t 3. Output ");
-			neuronTypeInput = this.inputToInt();
+			neuronTypeInput = ui.inputToInt();
 			//Proofs if the given neuron type is a correct one between 1 and 
 			//the number of values in ENeuronType
 			if (neuronTypeInput <= ENeuronType.values().length	&& neuronTypeInput > 0) {
 				neuronType = ENeuronType.values()[neuronTypeInput - 1];
 			} else {
 				System.out.println("No possible value! Aborting...");
-				in.reset();
 				return;
 			}
 
 			System.out.println("Choose an activation function: [1]");
 			System.out.println("\t 1. Identity ");
-			activationInput = this.inputToInt();
+			activationInput = ui.inputToInt();
 			//Proofs if the given activation function is a correct one between 1 and 
 			//the number of values in EActivationFunction
 			if (activationInput <= EActivationFunction.values().length	&& activationInput > 0) {
@@ -121,19 +120,19 @@ public class Action_add extends Action {
 			int inputLayer, inputNeuron, outputLayer, outputNeuron;
 
 			System.out.print("Adding the axon to this perceptron: ");
-			perceptronName = this.inputToString();
+			perceptronName = ui.inputToString();
 
 			System.out.print("Source row of the perceptron layer: ");
-			inputLayer = this.inputToInt();
+			inputLayer = ui.inputToInt();
 
 			System.out.print("Source neuron of the axon: ");
-			inputNeuron = this.inputToInt();
+			inputNeuron = ui.inputToInt();
 
 			System.out.print("Target row of the perceptron layer: ");
-			outputLayer = this.inputToInt();
+			outputLayer = ui.inputToInt();
 
 			System.out.print("Target neuron of the axon: ");
-			outputNeuron = this.inputToInt();
+			outputNeuron = ui.inputToInt();
 			//Proof if the given perceptron name is the same as in the datastore
 			if (ds.getPerceptron(perceptronName) == null) {
 				System.out.println("No possible Perceptron found...");
@@ -145,62 +144,7 @@ public class Action_add extends Action {
 		}
 	}
 	
-	/**
-	 * This function fetches the user input and converts the value in double
-	 * @return value from user input 
-	 */
-	private double inputToDouble() {
-		double inputValue = 0;
-		while (true) {
-			try {
-				inputValue = Double.valueOf(this.in.next().trim());
-				break;
-			} catch (NumberFormatException e) {
-				System.out.println("That wasn't a double value");
-				this.in.nextLine();
-			} catch (InputMismatchException e) {
-				System.out.println("That wasn't a double value");
-				this.in.nextLine();
-			}
-		}
-		return inputValue;
-	}
 
-	/**
-	 * This function fetches the user input and converts the value in int
-	 * @return value from user input 
-	 */
-	private int inputToInt() {
-		int inputValue = 0;
-		while (true) {
-			try {
-				inputValue = this.in.nextInt();
-				break;
-			} catch (NumberFormatException e) {
-				System.out.println("That wasn't an int value. Try another one...");
-				this.in.nextLine();
-			} catch (InputMismatchException e) {
-				System.out.println("That wasn't an int value. Try another one...");
-				this.in.nextLine();
-			}
-		}
-		return inputValue;
-	}
-
-	/**
-	 * This function fetches the user input and saves the value as an string
-	 * @return value from user input 
-	 */
-	private String inputToString() {
-		String inputValue = null;
-		try {
-			inputValue = this.in.next();
-		} catch (NoSuchElementException e) {
-			System.out.println("There isn't any string available");
-			this.in.nextLine();	
-		}
-		return inputValue;
-	}
 
 	@Override
 	public String getDescription() {
