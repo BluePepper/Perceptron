@@ -157,10 +157,10 @@ public class Action_add extends Action {
 				break;
 			} catch (NumberFormatException e) {
 				System.out.println("That wasn't a double value");
-				in.reset();
+				this.in.nextLine();
 			} catch (InputMismatchException e) {
 				System.out.println("That wasn't a double value");
-				in.reset();
+				this.in.nextLine();
 			}
 		}
 		return inputValue;
