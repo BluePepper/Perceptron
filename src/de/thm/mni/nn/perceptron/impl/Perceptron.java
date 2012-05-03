@@ -14,6 +14,7 @@ import java.util.List;
 public class Perceptron {
 	private List<List<Neuron>> neurons = new ArrayList<List<Neuron>>();
 	private Double seedmin, seedmax;
+	private Double learningRate = 0.8;
 	
 	/**
 	 * Constructs a new Perceptron with the given number of Layers
@@ -74,11 +75,13 @@ public class Perceptron {
 	 * @param startNeuronColumn
 	 * @param endNeuronLayer
 	 * @param endNeuronColumn
+	 * @throws IllegalArgumentException if any of the Columns or Layers are out of Bounds. Errormessage included!
 	 */
 	public void addAxon(Integer startNeuronLayer, Integer startNeuronColumn, Integer endNeuronLayer, Integer endNeuronColumn) {
 		if (startNeuronLayer >= neurons.size() || endNeuronLayer >= neurons.size()) {
-			throw new IndexOutOfBoundsException("This Perceptron stores only " + (neurons.size()) + " Layers!");
+			throw new IllegalArgumentException("Start or End Layer equals not the size of the Perceptron.");
 		}
+		// TODO: Check Columns!
 		Neuron startNeuron = neurons.get(startNeuronLayer).get(startNeuronColumn);
 		Neuron endNeuron = neurons.get(endNeuronLayer).get(endNeuronColumn);
 		new Axon(startNeuron, endNeuron, this.seedmin, this.seedmax); // the Connection between endNeuron an Axon is handled in the Axon Constructor
@@ -87,18 +90,65 @@ public class Perceptron {
 	/**
 	 * 
 	 */
-	public void propagate() {
+	public void propagate(Pattern p) {
+		// Test if the Pattern matches the Input Length (Output Length is irrelevant for propagate
+		if (!(neurons.get(0).size() == p.getInputLength())) {   
+			throw new IllegalArgumentException("Given Pattern does not match Perceptrons number of Input Neurons!");
+		}
 		
+		// Set Activation Values
+		for (int i = 0; i < neurons.get(0).size(); i++) {
+			neurons.get(0).get(i).setActivationValue(p.getInputNeuronsSet()[i]);
+		}
+		
+		// Propagate by looping over all Layer except the first
+		// First Layer is ignored because there are no incoming Axons
 		for (int i = 1; i < neurons.size(); i++) {
 			for (Neuron neuron : neurons.get(i)) {
 				neuron.propagateMe();
 			}
 		}		
+		
 		// get result by looping over OutputNeurons
 		List<Neuron> outputNeurons = neurons.get(neurons.size()-1);
 		for (Neuron neuron : outputNeurons) {
 			System.out.println("output Value: " + neuron.getActivationValue());
 		}
+	}
+	/**
+	 * Train Function
+	 * TODO: Javadoc :-) 
+	 * @param p
+	 */
+	public void train(Pattern p) {
+		// propagate; set activation Values
+		this.propagate(p);
+		
+		// run over all Layers from the bottom to the top; Except the Input Layer
+		// Backpropagation
+		for(int i = neurons.size()-1; i > 0; i--) {
+			for(int s = 0; s < neurons.get(i).size(); i++) {
+				Neuron neuron = neurons.get(i).get(s);
+				if(neuron.getNeuronType() == ENeuronType.Output) {
+					neuron.calculateDeltaFunctionValuesForOutputNeuron(p.getOutputNeuronsSet()[s]);
+				}
+				if(neuron.getNeuronType() == ENeuronType.Hidden) {
+					neuron.calculateDeltaFunctionValuesForHiddenNeuron();
+				}
+				if(neuron.getNeuronType() == ENeuronType.Input) {
+					throw new IllegalStateException("Error: Input Neuron in Layer " + i + " found!");
+				}
+			}
+		}
+		
+		// Calculate new weights
+		for(int i = 1; i < neurons.size(); i++) {
+			for(Neuron neuron : neurons.get(i)) {
+				neuron.calculateNewWeightsForMyDendrites(learningRate);
+			}
+		}
+		
+		
 	}
 	
 	

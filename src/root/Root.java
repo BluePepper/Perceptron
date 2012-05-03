@@ -16,6 +16,11 @@ public class Root {
 		activatedCommands.add("exit");
 		activatedCommands.add("load");
 		activatedCommands.add("add");
+		activatedCommands.add("propagate");
+		
+		// TODO: list Function
+		// TODO: print tree Function
+		// TODO: list Axon weights function?
 		
 		UserInterface ui = new UserInterface(activatedCommands, true);
 		Thread t = new Thread(ui);
