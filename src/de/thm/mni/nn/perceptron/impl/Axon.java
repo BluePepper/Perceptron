@@ -117,6 +117,12 @@ public class Axon {
 	 */
 	
 	public void setRandonWeight(double seedMin, double seedMax) {
+		if (seedMin > seedMax)
+		{
+			double tmp = seedMin;
+			seedMin = seedMax;
+			seedMax = tmp;
+		}
 		double randomValue = Math.random() * ((seedMax - seedMin) + 1) + seedMin;
 		this.weight = Math.round(randomValue*1000)/1000d;	
 	}
