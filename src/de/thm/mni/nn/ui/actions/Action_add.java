@@ -7,6 +7,7 @@ import java.util.Scanner;
 import de.thm.mni.nn.model.DataStore;
 import de.thm.mni.nn.perceptron.impl.EActivationFunction;
 import de.thm.mni.nn.perceptron.impl.ENeuronType;
+import de.thm.mni.nn.perceptron.impl.Pattern;
 import de.thm.mni.nn.perceptron.impl.Perceptron;
 import de.thm.mni.nn.ui.Action;
 import de.thm.mni.nn.ui.UserInterface;
@@ -144,6 +145,29 @@ public class Action_add extends Action {
 				ds.getPerceptron(perceptronName).addAxon(inputLayer,
 						inputNeuron, outputLayer, outputNeuron);
 			}
+		} else if (args.equalsIgnoreCase("pattern")) {
+			String patternName;
+			int numberOfInputNeurons;
+			
+			System.out.print("Choose a pattern name: ");
+			patternName = ui.inputToString();
+			
+			System.out.print("No. of inputNeurons for the pattern: ");
+			numberOfInputNeurons = ui.inputToInt();
+			Double inputpattern[] = new Double[numberOfInputNeurons];
+			
+			for (int i=0; i<numberOfInputNeurons; i++)
+			{
+				System.out.print("pattern for " + (i+1) + ". Input-Neuron: ");
+				inputpattern[i] = ui.inputToDouble();
+			}
+			//Proof if the given perceptron name is the same as in the datastore
+			if (ds.addPattern(patternName, new Pattern(inputpattern))) {
+				System.out.println("Added the given pattern");
+			} else {
+				System.out.println("Aborting... There is already an pattern with this name");
+			}
+						
 		}
 	}
 	
@@ -151,7 +175,7 @@ public class Action_add extends Action {
 
 	@Override
 	public String getDescription() {
-		return "Adds an 'perceptron', 'neuron' or 'axon' to the Neuronal Net";
+		return "Adds an 'perceptron', 'neuron' or 'axon' 'pattern' to the Neuronal Net";
 	}
 
 }
