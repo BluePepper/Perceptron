@@ -27,12 +27,32 @@ public class Pattern {
 	}
 	
 	/**
+	 * Returns the Patterns Activation Values.
+	 * @return a list of double Values.
+	 */
+	public Double[] getInputNeuronsSet() {
+		return inputNeurons;
+	}
+	
+	/**
+	 * Returns the PAtterns Teaching Input for the Output Neurons
+	 * @return a list of double Values
+	 */
+	public Double[] getOutputNeuronsSet() {
+		if(outputSet) {
+			return outputNeurons;
+		}
+		throw new IllegalStateException("There is no Output Set!");
+	}
+	
+	/**
 	 * Adds the optional Output Pattern in the same way the InputPattern was set in the Constructor.
 	 * This is need to use the Pattern for Training
 	 * @param outputPattern This double Array defines the wanted output.
 	 */
 	public void addOutputPattern(Double[] outputPattern) {
 		this.outputNeurons = outputPattern.clone();
+		outputSet = true;
 	}
 	
 	/**
