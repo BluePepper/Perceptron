@@ -51,7 +51,7 @@ public class DataStore {
 	/**
 	 * Adds a Pattern to the Datastore.
 	 * @param name the name of the Pattern
-	 * @param perceptron The Pattern Object
+	 * @param pattern The Pattern Object
 	 * @return returns false if the name is already in use
 	 */
 	public boolean addPattern(String name, Pattern pattern) {
