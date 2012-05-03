@@ -56,8 +56,7 @@ public class Action_propagate extends Action {
 	 */
 	@Override
 	public String getDescription() {
-		// TODO Auto-generated method stub
-		return null;
+		return "Propagate a Perceptron with a given Pattern.";
 	}
 
 }
