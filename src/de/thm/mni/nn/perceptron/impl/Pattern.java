@@ -6,7 +6,7 @@ package de.thm.mni.nn.perceptron.impl;
 /**
  * A Pattern Object is used to Propagate or to Train a Perceptron.
  * A Pattern has a given Input and Output Values.
- * To propagate a Perceptron with a given Pattern, the pattern has to match the PErceptron.
+ * To propagate a Perceptron with a given Pattern, the pattern has to match the Perceptron.
  * This means the number of input and Output values in the Pattern has to match the number 
  * of Input and Output Neurons in the Perceptron.
  * @author Alexander Schulz
@@ -14,24 +14,24 @@ package de.thm.mni.nn.perceptron.impl;
  */
 public class Pattern {
 	
-	private Boolean[] inputNeurons;
-	private Boolean[] outputNeurons;
+	private Double[] inputNeurons;
+	private Double[] outputNeurons;
 	private Boolean outputSet = false;
 	
 	/**
 	 * Constructs a New Pattern Object with the given Activation Settings
-	 * @param activation This Boolean Array defines which Neuron is set to 1 or to 0
+	 * @param activation This double Array defines the Input Neuron Activation
 	 */
-	public Pattern(Boolean[] activation) {
+	public Pattern(Double[] activation) {
 		this.inputNeurons = activation.clone();
 	}
 	
 	/**
 	 * Adds the optional Output Pattern in the same way the InputPattern was set in the Constructor.
 	 * This is need to use the Pattern for Training
-	 * @param outputPattern This Boolean Array defines which OutputNeuron should be 1 or 0
+	 * @param outputPattern This double Array defines the wanted output.
 	 */
-	public void addOutputPattern(Boolean[] outputPattern) {
+	public void addOutputPattern(Double[] outputPattern) {
 		this.outputNeurons = outputPattern.clone();
 	}
 	
