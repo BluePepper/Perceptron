@@ -45,6 +45,15 @@ public class Perceptron {
 	}
 	
 	/**
+	 * Returns the number of neurons per layer in this Perceptron
+	 * @param layer Counting the neurons of this layer 
+	 * @return number of neurons per layer
+	 */
+	public Integer getNeuronsPerLayerCount(Integer layer) {
+		return neurons.get(layer).size();
+	}
+	
+	/**
 	 * Returns the number of Layers in this Perceptron
 	 * @return number of Layers
 	 */
