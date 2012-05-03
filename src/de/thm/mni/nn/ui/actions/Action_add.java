@@ -25,11 +25,11 @@ public class Action_add extends Action {
 	}
 
 	// TODO: NeuronType is calculated by the Layer Position(Layer 0 = input/Layer between = hidden/last layer = output)
-	// TODO: Number of Layers of Perceptron is minimum 2
+	// TODO: LearningRate
 	
 	/**
 	 * This function chooses between adding and perceptron,
-	 * neuron or axon
+	 * neuron, pattern or axon
 	 * @param args The given string from the command window
 	 */
 	public void callAction(String args) {
@@ -42,7 +42,11 @@ public class Action_add extends Action {
 
 			System.out.print("Number of layers: ");
 			perceptronLayer = ui.inputToInt();
-
+			
+			if (perceptronLayer < 2) {
+				System.out.println("Aborting...\nThe Perceptron need at least 2 layers");
+				return;
+			}
 			System.out.println("Choose an initial axon weight: [1/2]");
 			System.out.println("\t 1. Random axon weights between 0 and 1");
 			System.out.println("\t 2. Customized upper and lower boundary");
@@ -179,8 +183,6 @@ public class Action_add extends Action {
 				System.out.println("Aborting... There is already an pattern with this name");
 				return;
 			}
-			
-			
 						
 		}
 	}
