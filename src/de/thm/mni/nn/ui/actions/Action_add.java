@@ -23,6 +23,9 @@ public class Action_add extends Action {
 		super(ds, ui);
 	}
 
+	// TODO: NeuronType is calculated by the Layer Position(Layer 0 = input/Layer between = hidden/last layer = output)
+	// TODO: Number of Layers of Perceptron is minimum 2
+	
 	/**
 	 * This function chooses between adding and perceptron,
 	 * neuron or axon
