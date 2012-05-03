@@ -2,7 +2,6 @@ package de.thm.mni.nn.perceptron.impl;
 
 import java.util.ArrayList;
 
-
 /**
  * Class representing a Neuron in a Neuronal Network.
  * 
@@ -10,9 +9,11 @@ import java.util.ArrayList;
  */
 public class Neuron {
 
-	// CLASS VARIABLES *****************************************************************************************
+	// CLASS VARIABLES
+	// *****************************************************************************************
 
-	// INSTANCE VARIABLES *****************************************************************************************
+	// INSTANCE VARIABLES
+	// *****************************************************************************************
 	/**
 	 * Defines the Activationvalue of the Neuron. This is used when the Neuron
 	 * is of Type Input.
@@ -24,7 +25,7 @@ public class Neuron {
 	 * Dendrites
 	 */
 	private double net_input;
-	
+
 	/**
 	 * List of all Dendrites the Neuron is connected to.
 	 */
@@ -58,7 +59,8 @@ public class Neuron {
 		return neuronType;
 	}
 
-	// CONSTRUCTORS *****************************************************************************************
+	// CONSTRUCTORS
+	// *****************************************************************************************
 
 	/**
 	 * Constructor to be used for creating new Neurons. Adds the new Neuron to
@@ -69,26 +71,26 @@ public class Neuron {
 	 * @param neuronType
 	 *            Specifies the Type of the Neuron (INPUT, OUTPUT, HIDDEN)
 	 */
-	public Neuron(EActivationFunction activationFunction,
-			ENeuronType neuronType) {
+	public Neuron(EActivationFunction activationFunction, ENeuronType neuronType) {
 		this.activationFunction = activationFunction;
 		this.neuronType = neuronType;
-
 		this.incomingDendrites = new ArrayList<Axon>();
-		// Add neuron to Perceptrons Neuron-List
 	}
 
-	// CLASS-METHODS  *****************************************************************************************
+	// CLASS-METHODS
+	// *****************************************************************************************
 
-	// INSTANCE-METHODS PRIVATE *****************************************************************************************
-	
+	// INSTANCE-METHODS PRIVATE
+	// *****************************************************************************************
+
 	/**
 	 * Calculates the output of the Neuron by using the specified Activation
-	 * Function. 
-	 * All of the Activationfunctions are specified here.
-	 * If a not supported Function is chosen
+	 * Function. All of the Activationfunctions are specified here. If a not
+	 * supported Function is chosen
+	 * 
 	 * @throws UnsupportedOperationException
-	 * 				The UnsupportedOperationExeption is thrown when a not implemented Activationfunction is used.
+	 *             The UnsupportedOperationExeption is thrown when a not
+	 *             implemented Activationfunction is used.
 	 * @return Functionvalue of the Activation Function.
 	 */
 	private double calculateOutput() {
@@ -112,10 +114,9 @@ public class Neuron {
 			net_input += (ax.getWeight() * ax.getSource().getActivationValue());
 		}
 	}
-	
 
-	
-	// INSTANCE-METHODS PUBLIC *****************************************************************************************
+	// INSTANCE-METHODS PUBLIC
+	// *****************************************************************************************
 
 	/**
 	 * Returns the Activation Value of this Neuron.
@@ -125,7 +126,18 @@ public class Neuron {
 	public double getActivationValue() {
 		return this.activationValue;
 	}
-	
+
+	/**
+	 * Sets the Activation Value of the Neuron. This is especially needed to
+	 * preset the input Neurons.
+	 * 
+	 * @param newValue
+	 *            New Activation Value.
+	 */
+	public void setActivationValue(double newValue) {
+		this.activationValue = newValue;
+	}
+
 	/**
 	 * Inserts an Axon to the List of the Neurons incoming Dendrites.
 	 * 
@@ -153,24 +165,28 @@ public class Neuron {
 
 	/**
 	 * Training Method for the Neuron.
+	 * 
 	 * @throws UnsupportedOperationException
-	 * 				The UnsupportedOperationExeption is thrown when a not implemented Activationfunction is used.
-	 * @return Double Value that is defines the Training Value (Will be corrected later...)
+	 *             The UnsupportedOperationExeption is thrown when a not
+	 *             implemented Activationfunction is used.
+	 * @return Double Value that is defines the Training Value (Will be
+	 *         corrected later...)
 	 */
 	public double doTraining(double teaching_input) {
-		if (this.activationFunction == EActivationFunction.Identity){
+		if (this.activationFunction == EActivationFunction.Identity) {
 			return (teaching_input - activationValue);
 		}
-		throw new UnsupportedOperationException("Activation Function not Found!");
+		throw new UnsupportedOperationException(
+				"Activation Function not Found!");
 	}
-	
+
 	/**
 	 * Returns all Axons that are connected as Dendrites to the Neuron
+	 * 
 	 * @return An Array containing all the Dendrites connected to the Neuron.
 	 */
-	public Axon[] getMyDendrites()
-	{
-		return (Axon[])this.incomingDendrites.toArray();
+	public Axon[] getMyDendrites() {
+		return (Axon[]) this.incomingDendrites.toArray();
 	}
 
 }
