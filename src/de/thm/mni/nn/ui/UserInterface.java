@@ -7,9 +7,12 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.lang.reflect.InvocationTargetException;
 import java.util.HashMap;
+import java.util.InputMismatchException;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.NoSuchElementException;
+import java.util.Scanner;
 import java.util.Set;
 
 @SuppressWarnings("unused")
@@ -18,6 +21,7 @@ public class UserInterface implements Runnable {
 	private boolean run = true;
 	private Map<String, IUIAction> commands = new HashMap<String, IUIAction>();
 	private DataStore ds = new DataStore();
+	private Scanner in = new Scanner(System.in);
 
 	
 	/**
@@ -162,5 +166,63 @@ public class UserInterface implements Runnable {
 	public void stop() {
 		run = false;
 	}
+	
+	/**
+	 * This function fetches the user input and converts the value in double
+	 * @return value from user input 
+	 */
+	public double inputToDouble() {
+		double inputValue = 0;
+		while (true) {
+			try {
+				inputValue = Double.valueOf(this.in.next().trim());
+				break;
+			} catch (NumberFormatException e) {
+				System.out.println("That wasn't a double value");
+				this.in.nextLine();
+			} catch (InputMismatchException e) {
+				System.out.println("That wasn't a double value");
+				this.in.nextLine();
+			}
+		}
+		return inputValue;
+	}
+
+	/**
+	 * This function fetches the user input and converts the value in int
+	 * @return value from user input 
+	 */
+	public int inputToInt() {
+		int inputValue = 0;
+		while (true) {
+			try {
+				inputValue = this.in.nextInt();
+				break;
+			} catch (NumberFormatException e) {
+				System.out.println("That wasn't an int value. Try another one...");
+				this.in.nextLine();
+			} catch (InputMismatchException e) {
+				System.out.println("That wasn't an int value. Try another one...");
+				this.in.nextLine();
+			}
+		}
+		return inputValue;
+	}
+
+	/**
+	 * This function fetches the user input and saves the value as an string
+	 * @return value from user input 
+	 */
+	public String inputToString() {
+		String inputValue = null;
+		try {
+			inputValue = this.in.next();
+		} catch (NoSuchElementException e) {
+			System.out.println("There isn't any string available");
+			this.in.nextLine();	
+		}
+		return inputValue;
+	}
+	
 
 }
