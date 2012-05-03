@@ -29,7 +29,7 @@ public class Action_propagate extends Action {
 	 * Pattern and Perceptron name is retrieved via console
 	 */
 	@Override
-	public void callAction(String args) { // propagate <perceptron name> <pattern name>
+	public void callAction(String args) {
 		String perceptronName;
 		String patternName;
 		
