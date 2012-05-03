@@ -21,6 +21,12 @@ public class Neuron {
 	private double activationValue = 1.0;
 
 	/**
+	 * Specifies the actual Delta of the Neuron. Used in Backpropagation while
+	 * Training.
+	 */
+	private double myDelta = 0.0;
+
+	/**
 	 * The net_input value specifies the incoming Signals of all connected
 	 * Dendrites
 	 */
@@ -178,6 +184,66 @@ public class Neuron {
 		}
 		throw new UnsupportedOperationException(
 				"Activation Function not Found!");
+	}
+
+	/**
+	 * Adds the given Value to the Neurons Delta.
+	 * 
+	 * @param additor
+	 *            Value to add. Can be positive or negative.
+	 */
+	public void addDeltaValue(double additor) {
+		this.myDelta += additor;
+	}
+
+	/**
+	 * Calculates the Deltafunction for the Neuron. The Function works only for
+	 * Outputneurons. Otherwise InvalidOperationException is thrown.
+	 * 
+	 * @param teachingInput
+	 *            Is just needed for Output
+	 * @throws UnsupportedOperationException
+	 *             This Exception is thrown when the function is called from a
+	 *             not-Output Neuron.
+	 */
+	public void calculateDeltaFunctionValuesForOutputNeuron(double teachingInput) {
+		if (this.neuronType != ENeuronType.Output)
+			throw new UnsupportedOperationException(
+					"This function is only for the use with Output-Neurons! This is a "
+							+ this.neuronType.toString());
+		myDelta = teachingInput - this.activationValue;
+	}
+
+	/**
+	 * Calculates the Deltafunction for the Neuron. This Function only works for
+	 * Hidden-Neurons.
+	 * 
+	 * @throws UnsupportedOperationException
+	 *             This Exception is thrown when the function is called from a
+	 *             not-Hidden Neuron.
+	 */
+	public void calculateDeltaFunctionValuesForHiddenNeuron() {
+		if (this.neuronType != ENeuronType.Hidden)
+			throw new UnsupportedOperationException(
+					"This function is only for the use with Hidden-Neurons! This is a "
+							+ this.neuronType.toString());
+		for (Axon ax : this.incomingDendrites) {
+			ax.getSource().addDeltaValue(myDelta * ax.getWeight());
+		}
+	}
+
+	/**
+	 * Calculates the new Weights for the Dendrites of the Neuron.
+	 * 
+	 * @param learningRate
+	 *            The given Learning Rate for this Perceptron.
+	 */
+	public void calculateNewWeightsForMyDendrites(double learningRate) {
+		for (Axon ax : this.incomingDendrites) {
+			double newWeight = learningRate
+					* ax.getSource().getActivationValue() * this.myDelta;
+			ax.setWeight(newWeight);
+		}
 	}
 
 	/**
