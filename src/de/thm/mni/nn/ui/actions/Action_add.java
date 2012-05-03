@@ -158,12 +158,26 @@ public class Action_add extends Action {
 				System.out.print("pattern for " + (i+1) + ". Input-Neuron: ");
 				inputpattern[i] = ui.inputToDouble();
 			}
-			//Proof if the given perceptron name is the same as in the datastore
+			//Proof if the given pattern name is the same as in the datastore
 			if (ds.addPattern(patternName, new Pattern(inputpattern))) {
+				System.out.print("No. of output neurons for the pattern: ");
+				int numberOfOutputNeurons = ui.inputToInt();
+				Double outputpattern[] = new Double[numberOfOutputNeurons];
+				
+				for (int i=0; i<numberOfOutputNeurons; i++)
+				{
+					System.out.print("pattern for " + (i+1) + ". Output-Neuron: ");
+					outputpattern[i] = ui.inputToDouble();
+				}
+				ds.getPattern(patternName).addOutputPattern(outputpattern);
+				
 				System.out.println("Added the given pattern");
 			} else {
 				System.out.println("Aborting... There is already an pattern with this name");
+				return;
 			}
+			
+			
 						
 		}
 	}
