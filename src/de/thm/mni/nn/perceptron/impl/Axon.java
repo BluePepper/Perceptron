@@ -97,8 +97,10 @@ public class Axon {
 	 *            Source-Neuron of the Axon.
 	 * @param target
 	 *            Target-Neuron of the Axon.
-	 * @param weight
-	 *            Weight of the Axon.
+	 * @param seedmin
+	 *            Lower boundary of the random weight.
+	 * @param seedmax
+	 *            Upper boundary of the random weight.
 	 */
 	public Axon(Neuron source, Neuron target, double seedmin, double seedmax) {
 		this.setSource(source);
