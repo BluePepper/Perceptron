@@ -182,7 +182,7 @@ public class Perceptron {
 		// run over all Layers from the bottom to the top; Except the Input Layer
 		// Backpropagation
 		for(int i = neurons.size()-1; i > 0; i--) {
-			for(int s = 0; s < neurons.get(i).size(); i++) {
+			for(int s = 0; s < neurons.get(i).size(); s++) {
 				Neuron neuron = neurons.get(i).get(s);
 				if(neuron.getNeuronType() == ENeuronType.Output) {
 					neuron.calculateDeltaFunctionValuesForOutputNeuron(p.getOutputNeuronsSet()[s]);

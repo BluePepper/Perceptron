@@ -18,6 +18,7 @@ public class Root {
 		activatedCommands.add("propagate");
 		activatedCommands.add("list");
 		activatedCommands.add("dump");
+		activatedCommands.add("train");
 		
 		// TODO: print tree Function
 		// TODO: list Axon weights function?

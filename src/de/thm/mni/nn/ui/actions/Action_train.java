@@ -10,38 +10,37 @@ import de.thm.mni.nn.ui.Action;
 import de.thm.mni.nn.ui.UserInterface;
 
 /**
- * The Propagate Method is used to Propagate a Perceptron with a given Pattern.
+ * 
  * @author Alexander Schulz
  *
  */
-public class Action_propagate extends Action {
+public class Action_train extends Action {
 
+	// TODO: LEarning Rate: einfache Version=feste learning rate; advanced: 
+	// pro train eigene lrearning rate; perfect: Abnehmende Funktion (zuerst hohe rate dann immer kleiner...)
+	
 	/**
 	 * @param ds
 	 * @param ui
 	 */
-	public Action_propagate(DataStore ds, UserInterface ui) {
+	public Action_train(DataStore ds, UserInterface ui) {
 		super(ds, ui);
 	}
 
-	/**
-	 * Propagates a Perceptron with a given Pattern.
-	 * Pattern and Perceptron name is retrieved via console
-	 */
+	
 	@Override
 	public void callAction(String args) {
 		String perceptronName;
 		String patternName;
-		
-		System.out.print("Name of perceptron to propagate: ");
+		System.out.print("Name of perceptron to train: ");
 		perceptronName = ui.inputToString();
 		Perceptron perceptron = ds.getPerceptron(perceptronName);
 		if(perceptron == null) {
-			ui.printToConsole("Aborting... There is no Perceptron named '" + perceptronName + "'.");
+			ui.printToConsole("The given Perceptron could not be found!");
 			return;
 		}
 		
-		System.out.print("Name of the Pattern to use the inputValues from: ");
+		System.out.print("Name of the Pattern to use: ");
 		patternName = ui.inputToString();
 		Pattern pattern = ds.getPattern(patternName);
 		if(pattern == null) {
@@ -49,16 +48,15 @@ public class Action_propagate extends Action {
 			return;
 		}		
 		
-		perceptron.propagate(pattern);
-		
+		perceptron.train(pattern);
 	}
 
-	/**
+	/* (non-Javadoc)
 	 * @see de.thm.mni.nn.ui.IUIAction#getDescription()
 	 */
 	@Override
 	public String getDescription() {
-		return "Propagate a Perceptron with a given Pattern.";
+		return "Trains a Perceptron with a given Pattern";
 	}
 
 }
