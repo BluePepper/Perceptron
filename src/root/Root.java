@@ -2,7 +2,6 @@ package root;
 
 import java.util.ArrayList;
 import java.util.List;
-
 import de.thm.mni.nn.ui.UserInterface;
 
 public class Root {
@@ -26,7 +25,6 @@ public class Root {
 		UserInterface ui = new UserInterface(activatedCommands, true);
 		Thread t = new Thread(ui);
 		t.start();
-
 	}
 
 }
