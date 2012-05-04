@@ -62,6 +62,18 @@ public class Perceptron {
 	}
 	
 	/**
+	 * Returns the number of Neurons in this Perceptron
+	 * @return number of Neurons
+	 */
+	public Integer getNeuronCount() {
+		Integer count = 0;
+		for(List<Neuron> neurons : this.neurons) {
+			count += neurons.size();
+		}
+		return count;
+	}
+	
+	/**
 	 * Adds the given count of Neurons to the given layer.
 	 * The Neuron-Type and the ActivationFunction applies to the added Neurons.
 	 * @param layer The Neurons where added to this Layer
