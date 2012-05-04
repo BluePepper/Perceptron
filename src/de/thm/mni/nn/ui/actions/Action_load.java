@@ -36,8 +36,15 @@ public class Action_load extends Action {
 			ds.addPattern("pattern1", p);
 			//perc.propagate(p);
 			
-			perc.train(p);
+			//perc.train(p);
 			
+		} else if(args.equalsIgnoreCase("TestNet")){
+			Perceptron perc = new Perceptron(2);
+			perc.addNeuron(0, 2, ENeuronType.Input, EActivationFunction.Identity);
+			perc.addNeuron(1, 1, ENeuronType.Output, EActivationFunction.Identity);
+			perc.addAxon(0, 0, 1, 0);
+			perc.addAxon(0, 1, 1, 0);
+			ds.addPerceptron("test1", perc);
 		} else {
 			ui.printToConsole("Preset " + args + " could not be found!");
 		}

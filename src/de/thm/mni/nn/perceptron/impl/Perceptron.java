@@ -92,10 +92,10 @@ public class Perceptron {
 	
 	/**
 	 * Adds a Axon to the Perceptron. The Start and End-Neuron is identificated by the Layer and the Column of the Neuron
-	 * @param startNeuronLayer
-	 * @param startNeuronColumn
-	 * @param endNeuronLayer
-	 * @param endNeuronColumn
+	 * @param startNeuronLayer Layer of Start Neuron
+	 * @param startNeuronColumn Column of Start Neuron
+	 * @param endNeuronLayer Layer of End Neuron
+	 * @param endNeuronColumn Column of End Neuron
 	 * @throws IllegalArgumentException if any of the Columns or Layers are out of Bounds. Errormessage included!
 	 */
 	public void addAxon(Integer startNeuronLayer, Integer startNeuronColumn, Integer endNeuronLayer, Integer endNeuronColumn) {
@@ -106,6 +106,40 @@ public class Perceptron {
 		Neuron startNeuron = neurons.get(startNeuronLayer).get(startNeuronColumn);
 		Neuron endNeuron = neurons.get(endNeuronLayer).get(endNeuronColumn);
 		new Axon(startNeuron, endNeuron, this.seedmin, this.seedmax); // the Connection between endNeuron an Axon is handled in the Axon Constructor
+	}
+	
+	/**
+	 * Computes a Name for a given Neuron.
+	 * The result Name is in the Format Neuron-Layer-Column eg. Neron2-5
+	 * @param neuron The Neuron Object
+	 * @return The Name of the given Neuron
+	 * @throws IllegalArgumentException if the Neuron is not in this Perceptron
+	 */
+	public String getNeuronName(Neuron neuron) {
+		for(int i = 0; i < this.neurons.size(); i++) {
+			for(int s = 0; s < this.neurons.get(i).size(); s++) {
+				if(this.neurons.get(i).get(s) == neuron) {
+					return "Neuron" + i + "-" + s;
+				}
+			}
+		}
+		throw new IllegalArgumentException("The given Neuron is not Part of this Perceptron");
+	}
+	
+	/**
+	 * Return the Neuron in the given Layer and Column
+	 * @param layer Layer where the Neuron is
+	 * @param column Column where the Neuron is
+	 * @return The Neuron in the given Layer and column
+	 * @throws IllegalArgumentException if the Layer or Column exceeds the Borders of the Perceptron
+	 */
+	public Neuron getNeuron(Integer layer, Integer column) {
+		if(layer < neurons.size()) {
+			if(column < neurons.get(layer).size()) {
+				return neurons.get(layer).get(column);
+			}
+		}
+		throw new IllegalArgumentException("Error: The given Range is not within the Borders of this Perceptron!");
 	}
 	
 	/**

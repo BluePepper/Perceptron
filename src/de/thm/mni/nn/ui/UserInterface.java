@@ -214,6 +214,7 @@ public class UserInterface implements Runnable {
 	 * @return value from user input 
 	 */
 	public String inputToString() {
+		// TODO: what happens if there is more than one word? ... what if the word is empty(null?)
 		String inputValue = null;
 		try {
 			inputValue = this.in.next();
