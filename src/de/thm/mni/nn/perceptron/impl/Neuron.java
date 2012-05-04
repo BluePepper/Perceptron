@@ -253,10 +253,12 @@ public class Neuron {
 	 * @return An Array containing all the Dendrites connected to the Neuron.
 	 */
 	public Axon[] getMyDendrites() {
-		//TODO: ClassCastException???
-		return (Axon[]) this.incomingDendrites.toArray();
+		if (!this.incomingDendrites.isEmpty())
+			return (Axon[]) this.incomingDendrites.toArray();
+		Axon[] r = new Axon[0];
+		return r;
 	}
-	
+
 	/**
 	 * Returns all Axons that are connected as Dendrites to the Neuron
 	 * 
