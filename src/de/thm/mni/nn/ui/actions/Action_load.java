@@ -3,6 +3,7 @@ package de.thm.mni.nn.ui.actions;
 import de.thm.mni.nn.model.DataStore;
 import de.thm.mni.nn.perceptron.impl.EActivationFunction;
 import de.thm.mni.nn.perceptron.impl.ENeuronType;
+import de.thm.mni.nn.perceptron.impl.Pattern;
 import de.thm.mni.nn.perceptron.impl.Perceptron;
 import de.thm.mni.nn.ui.Action;
 import de.thm.mni.nn.ui.UserInterface;
@@ -26,9 +27,16 @@ public class Action_load extends Action {
 			perc.addAxon(0, 0, 1, 0);
 			perc.addAxon(0, 1, 1, 0);
 			
+			Double[] activationValues = new Double[2];
+			activationValues[0] = 1.0;
+			activationValues[1] = 1.0;
 			
 			
-			perc.propagate();
+			Pattern p = new Pattern(activationValues);
+			ds.addPattern("pattern1", p);
+			//perc.propagate(p);
+			
+			perc.train(p);
 			
 		} else {
 			ui.printToConsole("Preset " + args + " could not be found!");
