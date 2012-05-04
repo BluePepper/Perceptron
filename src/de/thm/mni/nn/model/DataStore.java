@@ -2,6 +2,7 @@ package de.thm.mni.nn.model;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Set;
 
 import de.thm.mni.nn.perceptron.impl.Pattern;
 import de.thm.mni.nn.perceptron.impl.Perceptron;
@@ -32,6 +33,22 @@ public class DataStore {
 		}
 		perceptrons.put(name, perceptron);
 		return true;
+	}
+	
+	/**
+	 * Returns a Set of String holding all Pattern Names in the DataStore.
+	 * @return Set of all Pattern Names
+	 */
+	public Set<String> getPatternNames() {
+		return patterns.keySet();
+	}
+	
+	/**
+	 * Returns a Set of String holding all Perceptron Names in the DataStore.
+	 * @return Set of all Perceptron Names
+	 */
+	public Set<String> getPerceptronNames() {
+		return perceptrons.keySet();
 	}
 	
 	/**
