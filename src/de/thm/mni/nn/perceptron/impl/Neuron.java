@@ -1,6 +1,7 @@
 package de.thm.mni.nn.perceptron.impl;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Class representing a Neuron in a Neuronal Network.
@@ -252,7 +253,17 @@ public class Neuron {
 	 * @return An Array containing all the Dendrites connected to the Neuron.
 	 */
 	public Axon[] getMyDendrites() {
+		//TODO: ClassCastException???
 		return (Axon[]) this.incomingDendrites.toArray();
+	}
+	
+	/**
+	 * Returns all Axons that are connected as Dendrites to the Neuron
+	 * 
+	 * @return A List containing all the Dendrites connected to the Neuron.
+	 */
+	public List<Axon> getMyDendritesAsList() {
+		return this.incomingDendrites;
 	}
 
 }
