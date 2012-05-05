@@ -125,7 +125,7 @@ public class Axon {
 			seedMin = seedMax;
 			seedMax = tmp;
 		}
-		double randomValue = Math.random() * ((seedMax - seedMin) + 1) + seedMin;
+		double randomValue = Math.random() * ((seedMax - seedMin)) + seedMin;
 		this.weight = Math.round(randomValue*1000)/1000d;	
 	}
 
