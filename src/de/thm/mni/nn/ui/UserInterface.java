@@ -109,7 +109,7 @@ public class UserInterface implements Runnable {
 			// search for command
 			IUIAction action = getObjectForCmd(cmd);
 			if (action != null) {
-				action.callAction(args);
+					action.callAction(args);
 			} else {
 				printToConsole("Unknown Command: '" + cmd + "'");
 			}

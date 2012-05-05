@@ -119,7 +119,7 @@ public class Perceptron {
 		for(int i = 0; i < this.neurons.size(); i++) {
 			for(int s = 0; s < this.neurons.get(i).size(); s++) {
 				if(this.neurons.get(i).get(s) == neuron) {
-					return "Neuron" + i + "-" + s;
+					return "Neuron" + i + s;
 				}
 			}
 		}

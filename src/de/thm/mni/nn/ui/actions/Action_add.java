@@ -1,9 +1,5 @@
 package de.thm.mni.nn.ui.actions;
 
-import java.util.InputMismatchException;
-import java.util.NoSuchElementException;
-import java.util.Scanner;
-
 import de.thm.mni.nn.model.DataStore;
 import de.thm.mni.nn.perceptron.impl.EActivationFunction;
 import de.thm.mni.nn.perceptron.impl.ENeuronType;

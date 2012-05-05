@@ -20,9 +20,12 @@ public class Root {
 		activatedCommands.add("dump");
 		activatedCommands.add("train");
 		activatedCommands.add("readfile");
+		activatedCommands.add("draw");
 		
+		//I think this two TODOs are obsolete since the draw function with GraphViz
 		// TODO: print tree Function
 		// TODO: list Axon weights function?
+		
 		
 		UserInterface ui = new UserInterface(activatedCommands, true);
 		Thread t = new Thread(ui);

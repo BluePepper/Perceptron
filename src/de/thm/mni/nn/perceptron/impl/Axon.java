@@ -28,7 +28,23 @@ public class Axon {
 	 */
 	private double weight_new;
 
-	// CAPSULATION METHODS
+	/**
+	 * Returns the new Weight of the Axon.
+	 * 
+	 * @return The Axons new weight.
+	 */
+	public double getWeight_new() {
+		return weight_new;
+	}
+
+	/**
+	 * Sets the new Weight of the Axon.
+	 * 
+	 * @param weight_new The new weight of the axon.
+	 */
+	public void setWeight_new(double weight_new) {
+		this.weight_new = weight_new;
+	}
 
 	/**
 	 * Returns the Source Neuron of the Axon.
@@ -127,17 +143,5 @@ public class Axon {
 		}
 		double randomValue = Math.random() * ((seedMax - seedMin)) + seedMin;
 		this.weight = Math.round(randomValue*1000)/1000d;	
-	}
-
-	/**
-	 * Calculates the new weight of the Axon by using the specified Training
-	 * Function
-	 * 
-	 * @return Functionvalue of the Training Function.
-	 */
-
-	public double trainWeight() {
-		throw new UnsupportedOperationException(
-				"Calculation of Weight not yet implemented");
 	}
 }
