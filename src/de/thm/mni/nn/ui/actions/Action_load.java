@@ -29,10 +29,12 @@ public class Action_load extends Action {
 			
 			Double[] activationValues = new Double[2];
 			activationValues[0] = 1.0;
-			activationValues[1] = 1.0;
+			activationValues[1] = 0.0;
 			
-			
+			Double[] outputValues = new Double[1];
+			outputValues[0] = 0.0;
 			Pattern p = new Pattern(activationValues);
+			p.addOutputPattern(outputValues);
 			ds.addPattern("pattern1", p);
 			//perc.propagate(p);
 			

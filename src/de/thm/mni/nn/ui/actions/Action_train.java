@@ -32,6 +32,7 @@ public class Action_train extends Action {
 	public void callAction(String args) {
 		String perceptronName;
 		String patternName;
+		int training_count;
 		System.out.print("Name of perceptron to train: ");
 		perceptronName = ui.inputToString();
 		Perceptron perceptron = ds.getPerceptron(perceptronName);
@@ -48,7 +49,11 @@ public class Action_train extends Action {
 			return;
 		}		
 		
-		perceptron.train(pattern);
+		System.out.println("How many times should be trained?:");
+		training_count = ui.inputToInt();
+		for (int i = 0; i < training_count; i++){
+			perceptron.train(pattern);
+		}
 	}
 
 	/* (non-Javadoc)

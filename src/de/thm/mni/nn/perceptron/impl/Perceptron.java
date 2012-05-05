@@ -143,7 +143,7 @@ public class Perceptron {
 	}
 	
 	/**
-	 * 
+	 * TODO: Javadoc
 	 */
 	public void propagate(Pattern p) {
 		// Test if the Pattern matches the Input Length (Output Length is irrelevant for propagate

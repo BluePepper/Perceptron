@@ -122,6 +122,16 @@ public class Neuron {
 		}
 	}
 
+	/**
+	 * Adds the given Value to the Neurons Delta.
+	 * 
+	 * @param additor
+	 *            Value to add. Can be positive or negative.
+	 */
+	private void addDeltaValue(double additor) {
+		this.myDelta += additor;
+	}
+	
 	// INSTANCE-METHODS PUBLIC
 	// *****************************************************************************************
 
@@ -170,32 +180,6 @@ public class Neuron {
 		System.out.println("My Activation Value: " + this.activationValue);
 	}
 
-	/**
-	 * Training Method for the Neuron.
-	 * 
-	 * @throws UnsupportedOperationException
-	 *             The UnsupportedOperationExeption is thrown when a not
-	 *             implemented Activationfunction is used.
-	 * @return Double Value that is defines the Training Value (Will be
-	 *         corrected later...)
-	 */
-	public double doTraining(double teaching_input) {
-		if (this.activationFunction == EActivationFunction.Identity) {
-			return (teaching_input - activationValue);
-		}
-		throw new UnsupportedOperationException(
-				"Activation Function not Found!");
-	}
-
-	/**
-	 * Adds the given Value to the Neurons Delta.
-	 * 
-	 * @param additor
-	 *            Value to add. Can be positive or negative.
-	 */
-	public void addDeltaValue(double additor) {
-		this.myDelta += additor;
-	}
 
 	/**
 	 * Calculates the Deltafunction for the Neuron. The Function works only for
@@ -208,6 +192,7 @@ public class Neuron {
 	 *             not-Output Neuron.
 	 */
 	public void calculateDeltaFunctionValuesForOutputNeuron(double teachingInput) {
+		myDelta = 0.0;
 		if (this.neuronType != ENeuronType.Output)
 			throw new UnsupportedOperationException(
 					"This function is only for the use with Output-Neurons! This is a "
@@ -243,7 +228,7 @@ public class Neuron {
 		for (Axon ax : this.incomingDendrites) {
 			double newWeight = learningRate
 					* ax.getSource().getActivationValue() * this.myDelta;
-			ax.setWeight(newWeight);
+			ax.setWeight(ax.getWeight() + newWeight);
 		}
 	}
 
