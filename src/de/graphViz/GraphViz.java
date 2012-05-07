@@ -69,17 +69,21 @@ import java.io.InputStreamReader;
  */
 public class GraphViz
 {
-   /**
+/**
     * The dir. where temporary files will be created.
     */
-   private static String TEMP_DIR = "/tmp";	// Linux
- //  private static String TEMP_DIR = "c:/temp";	// Windows
+   private static String TEMP_DIR_MAC = "/tmp";	// Mac
+   private static String TEMP_DIR_LINUX = "/tmp";	// Linux
+   private static String TEMP_DIR_WINDOWS = "c:/temp";	// Windows
+   private static String TEMP_DIR = null;
 
    /**
     * Where is your dot program located? It will be called externally.
     */
-   private static String DOT = "/usr/local/bin/dot";	// Linux
-  // private static String DOT = "c:/Program Files/Graphviz2.26.3/bin/dot.exe";	// Windows
+   private static String DOT_MAC = "/usr/local/bin/dot";	// Mac
+   private static String DOT_LINUX = "/usr/bin/dot";	// Linux
+   private static String DOT_WINDOWS = "c:/Program Files/Graphviz2.26.3/bin/dot.exe";	// Windows
+   private static String DOT = null;
 
    /**
     * The source of the graph written in dot language.
@@ -91,6 +95,18 @@ public class GraphViz
     * a graph.
     */
    public GraphViz() {
+	   String system = System.getProperty("os.name").toLowerCase();
+	   if(system.contains("lin")) {
+		   TEMP_DIR = TEMP_DIR_LINUX;
+		   DOT = DOT_LINUX;
+	   } else if (system.contains("mac")) {
+		   TEMP_DIR = TEMP_DIR_MAC;
+		   DOT = DOT_MAC;
+	   } else if(system.contains("wnidows")) {
+		   TEMP_DIR = TEMP_DIR_WINDOWS;
+		   DOT = DOT_WINDOWS;
+   }
+		   
    }
 
    /**
