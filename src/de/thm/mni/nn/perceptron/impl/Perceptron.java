@@ -90,6 +90,8 @@ public class Perceptron {
 		}
 	}
 	
+	//TODO: Function to add an Axon and hand preset weight over.
+	
 	/**
 	 * Adds a Axon to the Perceptron. The Start and End-Neuron is identificated by the Layer and the Column of the Neuron
 	 * @param startNeuronLayer Layer of Start Neuron

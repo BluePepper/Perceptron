@@ -12,10 +12,18 @@ import de.thm.mni.nn.ui.UserInterface;
 
 public class Action_readfile extends Action {
 
+	/**
+	 * Constructor
+	 * @param ds Datastore to work on.
+	 * @param ui User interface to work on.
+	 */
 	public Action_readfile(DataStore ds, UserInterface ui) {
 		super(ds, ui);
 	}
 
+	/**
+	 * Is called to Execute the Action.
+	 */
 	public void callAction(String args) {
 		Perceptron p = null;
 		Pattern pt = null;
@@ -83,6 +91,7 @@ public class Action_readfile extends Action {
 
 					p.addAxon(startNeuronLayer, startNeuronColumn,
 							endNeuronLayer, endNeuronColumn);
+					
 				} else if (ws[0].equals("T") && ws.length == 3
 						&& ws[1].equals("BEGIN")) {
 					if (pt != null) {
