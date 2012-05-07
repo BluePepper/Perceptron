@@ -22,9 +22,10 @@ public class Root {
 		activatedCommands.add("readfile");
 		activatedCommands.add("draw");
 		
-		//I think this two TODOs are obsolete since the draw function with GraphViz
-		// TODO: print tree Function
-		// TODO: list Axon weights function?
+		// TODO: delete function 
+		// TODO: dump for Patterns
+		// TODO: Help Command
+		// TODO: Train: Regression Function for learning rate
 		
 		
 		UserInterface ui = new UserInterface(activatedCommands, true);

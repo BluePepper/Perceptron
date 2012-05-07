@@ -25,7 +25,6 @@ public class Action_dump extends Action {
 	 */
 	public Action_dump(DataStore ds, UserInterface ui) {
 		super(ds, ui);
-		// TODO Auto-generated constructor stub
 	}
 
 	/* (non-Javadoc)
@@ -67,18 +66,7 @@ public class Action_dump extends Action {
 				}
 			}
 			ui.printToConsole("\n");
-		}
-		
-		/*
-		Layer 1:
-			N1-1 N1-2 N1-3 N1-4
-		Layer 2:
-			N2-1 N2-2
-			
-		Axons:
-			N1-1 -> 0.5 -> N2-1
-		*/
-				
+		}		
 	}
 
 	/* (non-Javadoc)
@@ -86,8 +74,7 @@ public class Action_dump extends Action {
 	 */
 	@Override
 	public String getDescription() {
-		// TODO Auto-generated method stub
-		return null;
+		return "Dumps a Perceptron to the commandline - better use the 'draw' command.";
 	}
 
 }
