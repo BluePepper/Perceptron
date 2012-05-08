@@ -22,6 +22,16 @@ public class Neuron {
 	private double activationValue = 1.0;
 
 	/**
+	 * Defines an upper border for the activation Value if used activation function needs it.
+	 */
+	private double activationValueUpperBound = 0.0;
+	
+	/**
+	 * Defines an lower border for the activation Value if used activation function needs it.
+	 */
+	private double activationValueLowerBound = 0.0;
+	
+	/**
 	 * Specifies the actual Delta of the Neuron. Used in Backpropagation while
 	 * Training.
 	 */
@@ -71,7 +81,7 @@ public class Neuron {
 
 	/**
 	 * Constructor to be used for creating new Neurons. Adds the new Neuron to
-	 * the given Perceptrons Neuron-List for later usage.
+	 * the given Perceptrons Neuron-List for later usage. This 
 	 * 
 	 * @param activationFunction
 	 *            The Activation Function used by the Neuron.
@@ -79,6 +89,19 @@ public class Neuron {
 	 *            Specifies the Type of the Neuron (INPUT, OUTPUT, HIDDEN)
 	 */
 	public Neuron(EActivationFunction activationFunction, ENeuronType neuronType) {
+		this.activationFunction = activationFunction;
+		this.neuronType = neuronType;
+		this.incomingDendrites = new ArrayList<Axon>();
+	}
+	
+	/**
+	 * 
+	 * @param activationFunction
+	 * @param low
+	 * @param high
+	 * @param neuronType
+	 */
+	public Neuron(EActivationFunction activationFunction,double low, double high, ENeuronType neuronType) {
 		this.activationFunction = activationFunction;
 		this.neuronType = neuronType;
 		this.incomingDendrites = new ArrayList<Axon>();
@@ -106,7 +129,7 @@ public class Neuron {
 		}
 		calculateNetInput();
 		if (this.activationFunction == EActivationFunction.Identity) {
-			return net_input;
+			return ActivationCalculation.Identity(net_input);
 		}
 		return 0.00;
 	}
@@ -230,6 +253,7 @@ public class Neuron {
 					* ax.getSource().getActivationValue() * this.myDelta;
 			ax.setWeight(ax.getWeight() + newWeight);
 		}
+		//TODO: Find out why we don't need new Weight Attribute!
 	}
 
 	/**

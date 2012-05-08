@@ -1,6 +1,12 @@
 package de.thm.mni.nn.perceptron.impl;
 
+/**
+ * Enumerator
+ * @author Marcel Walden
+ *
+ */
 public enum EActivationFunction {
-	Identity
-
+	Identity,
+	BoundedIdentity
+//TODO: Logistical Activation Function
 }
