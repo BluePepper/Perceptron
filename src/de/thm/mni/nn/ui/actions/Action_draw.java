@@ -72,12 +72,15 @@ public class Action_draw extends Action {
 				Neuron src = perceptron.getNeuron(i, s);
 				List<Axon> axons = src.getMyDendritesAsList();
 				for (int j = 0; j < axons.size(); j++) {
+					//TODO Neuron getActivationValue
+					double axonWeight = axons.get(j).getWeight();
+					axonWeight = Math.round(axonWeight*1000)/1000d;	;
 					gv.addln(perceptron.getNeuronName(axons.get(j).getSource())
 							+ " -> "
 							+ perceptron
 									.getNeuronName(axons.get(j).getTarget())
 							+ "[ label="
-							+ String.valueOf(axons.get(j).getWeight()) + " ];");
+							+ String.valueOf(axonWeight) + " ];");
 				}
 			}
 		}
