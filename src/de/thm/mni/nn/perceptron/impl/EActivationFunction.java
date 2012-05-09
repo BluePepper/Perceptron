@@ -7,6 +7,8 @@ package de.thm.mni.nn.perceptron.impl;
  */
 public enum EActivationFunction {
 	Identity,
-	BoundedIdentity
+	BoundedIdentity,
+	Threshold,
+	Logistic
 //TODO: Logistical Activation Function
 }

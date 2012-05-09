@@ -1,9 +1,11 @@
 package de.thm.mni.nn.perceptron.impl;
 
 /**
- * This class represents a collection of static Calculationfunctions for the Activation of a Neuron.
+ * This class represents a collection of static Calculationfunctions for the
+ * Activation of a Neuron.
+ * 
  * @author Marcel Walden
- *
+ * 
  */
 public class ActivationCalculation {
 
@@ -22,7 +24,7 @@ public class ActivationCalculation {
 	 *         will be returned.
 	 * 
 	 */
-	public static Double BoundedIdentity(Double input, Double lowerBound,
+	public static Double SaturatedIdentity(Double input, Double lowerBound,
 			Double upperBound) {
 		if (input > upperBound)
 			return upperBound;
@@ -40,5 +42,42 @@ public class ActivationCalculation {
 	 */
 	public static Double Identity(Double input) {
 		return input;
+	}
+
+	/**
+	 * Threshold Activation Function that returns either one or zero depending
+	 * on the input value and the set threshold
+	 * 
+	 * @param input
+	 *            Inputvalue for the function
+	 * @param thresholdValue
+	 *            Thresholdvalue as zero/one boundary
+	 * @return The function returns zero if the input is lower than the
+	 *         threshold and one if its equal to or larger than the threshold.
+	 */
+	public static Double Threshold(Double input, Double thresholdValue) {
+		if (input >= thresholdValue)
+			return 1.0;
+		else
+			return 0.0;
+	}
+
+	/**
+	 * Logistical Activation Function
+	 * 
+	 * @param inputValue
+	 *            Inputvalue for the function.
+	 * @param thresholdValue
+	 *            Threasholdvalue as boundary.
+	 * @param temperatureFactor
+	 *            Temperature-Constant.
+	 * @return The function returns the Logistical Representation of the input
+	 *         value.
+	 */
+	public static Double Logistic(Double inputValue, Double thresholdValue,
+			Double temperatureFactor) {
+		Double rv = 1 / (1 + (Math
+				.exp((-(inputValue - thresholdValue) / temperatureFactor))));
+		return rv;
 	}
 }
