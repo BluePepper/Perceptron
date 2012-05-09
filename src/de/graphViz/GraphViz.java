@@ -33,6 +33,9 @@ import java.io.FileOutputStream;
 import java.io.FileWriter;
 import java.io.InputStreamReader;
 
+import javax.swing.JFrame;
+import javax.swing.JOptionPane;
+
 /**
  * <dl>
  * <dt>Purpose: GraphViz Java API
@@ -58,7 +61,7 @@ import java.io.InputStreamReader;
  * </dd>
  *
  * </dl>
- *
+ * @version v0.5, 2012/05/09 (May) -- Just a system operation recognition.
  * @version v0.4, 2011/02/05 (February) -- Patch of Keheliya Gallaba is added. Now you
  * can specify the type of the output file: gif, dot, fig, pdf, ps, svg, png, etc.
  * @version v0.3, 2010/11/29 (November) -- Windows support + ability 
@@ -82,7 +85,7 @@ public class GraphViz
     */
    private static String DOT_MAC = "/usr/local/bin/dot";	// Mac
    private static String DOT_LINUX = "/usr/bin/dot";	// Linux
-   private static String DOT_WINDOWS = "c:/Program Files/Graphviz2.26.3/bin/dot.exe";	// Windows
+   private static String DOT_WINDOWS = "c:/Program Files/Graphviz/bin/dot.exe";	// Windows
    private static String DOT = null;
 
    /**
@@ -102,10 +105,12 @@ public class GraphViz
 	   } else if (system.contains("mac")) {
 		   TEMP_DIR = TEMP_DIR_MAC;
 		   DOT = DOT_MAC;
-	   } else if(system.contains("wnidows")) {
+	   } else if(system.contains("windows")) {
 		   TEMP_DIR = TEMP_DIR_WINDOWS;
 		   DOT = DOT_WINDOWS;
-   }
+	   } else {
+		   System.out.println("No supported system. \nGraphViz is only supported for Linux, Mac, Windows!");
+	   }
 		   
    }
 
@@ -186,7 +191,11 @@ public class GraphViz
          FileOutputStream fos = new FileOutputStream(to);
          fos.write(img);
          fos.close();
-      } catch (java.io.IOException ioe) { return -1; }
+      } catch (java.io.IOException ioe) { 
+    	System.out.println("Fehler");   
+      }
+      catch (java.lang.NullPointerException e) {
+	}
       return 1;
    }
 
@@ -222,13 +231,20 @@ public class GraphViz
             System.err.println("Warning: " + img.getAbsolutePath() + " could not be deleted!");
       }
       catch (java.io.IOException ioe) {
-         System.err.println("Error:    in I/O processing of tempfile in dir " + GraphViz.TEMP_DIR+"\n");
-         System.err.println("       or in calling external command");
-         ioe.printStackTrace();
+         System.err.println("Error:    in I/O processing of tempfile in dir " + GraphViz.TEMP_DIR+".\n");
+         System.err.println("You may need to install the programm GraphViz from http://www.graphviz.org/ \n" +
+         		"It's an free graph visualiation software. After installing just make sure that the program 'dot' is " +
+         		"in the folder: " + GraphViz.DOT);
+       //custom title, error icon
+         JOptionPane.showMessageDialog(new JFrame(),(
+             "There is a problem to draw the loaded perceptron! You may need to install \n" +
+             "the programm GraphViz from http://www.graphviz.org/\n" +
+         		"It's an free graph visualiation software. After installing just make sure \n" +
+         		"that the filepath for the program 'dot' is: "+ GraphViz.DOT),  "Program not found",
+             JOptionPane.ERROR_MESSAGE);
       }
       catch (java.lang.InterruptedException ie) {
          System.err.println("Error: the execution of the external program was interrupted");
-         ie.printStackTrace();
       }
 
       return img_stream;
@@ -294,7 +310,8 @@ public class GraphViz
 		   dis.close();
 	   } 
 	   catch (Exception e) {
-		   System.err.println("Error: " + e.getMessage());
+		   System.out.println("No file found");
+		   //System.err.println("Error: " + e.getMessage());
 	   }
 	   
 	   this.graph = sb;
