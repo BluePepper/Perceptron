@@ -75,7 +75,7 @@ public class Action_draw extends Action {
 				List<Axon> axons = src.getMyDendritesAsList();
 				for (int j = 0; j < axons.size(); j++) {
 
-					/* It's recommended to install graphViz version >= 0.29 to get
+					/* It's recommended to install graphViz version >= 2.29 to get
 					 * the view of the activationValue working.
 					 */
 					double axonWeight = axons.get(j).getWeight();
@@ -85,11 +85,11 @@ public class Action_draw extends Action {
 					gv.addln("forcelabels=true");
 							Neuron source = axons.get(j).getSource();
 							Neuron target = axons.get(j).getSource();
-							gv.addln(perceptron.getNeuronName(axons.get(j).getSource())	+ " [xlabel="+source.getActivationValue()+"];");
-							gv.addln(perceptron.getNeuronName(axons.get(j).getTarget())	+ " [xlabel="+target.getActivationValue()+", color=red];");
-							gv.addln(perceptron.getNeuronName(axons.get(j).getSource())
+							gv.addln(perceptron.getNeuronName(source)	+ " [xlabel="+source.getActivationValue()+"];");
+							gv.addln(perceptron.getNeuronName(target)	+ " [xlabel="+target.getActivationValue()+", color=red];");
+							gv.addln(perceptron.getNeuronName(source)
 							+ " -> "
-							+ perceptron.getNeuronName(axons.get(j).getTarget())
+							+ perceptron.getNeuronName(target)
 							+ "[ label="
 							+ String.valueOf(axonWeight) + " ];");
 				}
