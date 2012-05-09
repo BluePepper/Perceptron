@@ -20,12 +20,14 @@ import de.thm.mni.nn.ui.ShowImage;
 import de.thm.mni.nn.ui.UserInterface;
 
 /**
- * !!!!!------------------------------------------------------------------------------------
- * Till now It's just a basic implementation to show that it's possible to draw a tree with
- * graphViz. To see the picture it's required to install. http://www.graphviz.org/
- * The programm is available for Linux, Mac and Windows.
- * !!!!!------------------------------------------------------------------------------------
- * Draws a whole Perceptron including its Neurons, Axons and the Axon weights in a JPanel.
+ * !!!!!------------------------------------------------------------------------
+ * ------------ Till now It's just a basic implementation to show that it's
+ * possible to draw a tree with graphViz. To see the picture it's required to
+ * install. http://www.graphviz.org/ The programm is available for Linux, Mac
+ * and Windows.
+ * !!!!!------------------------------------------------------------
+ * ------------------------ Draws a whole Perceptron including its Neurons,
+ * Axons and the Axon weights in a JPanel.
  * 
  * @author Tobias Knoth
  * 
@@ -72,13 +74,22 @@ public class Action_draw extends Action {
 				Neuron src = perceptron.getNeuron(i, s);
 				List<Axon> axons = src.getMyDendritesAsList();
 				for (int j = 0; j < axons.size(); j++) {
-					//TODO Neuron getActivationValue
+
+					/* It's recommended to install graphViz version >= 0.29 to get
+					 * the view of the activationValue working.
+					 */
 					double axonWeight = axons.get(j).getWeight();
-					axonWeight = Math.round(axonWeight*1000)/1000d;	;
-					gv.addln(perceptron.getNeuronName(axons.get(j).getSource())
+					axonWeight = Math.round(axonWeight*1000)/1000d;
+					
+					gv.addln("node [color=red, fontcolor=red]");
+					gv.addln("forcelabels=true");
+							Neuron source = axons.get(j).getSource();
+							Neuron target = axons.get(j).getSource();
+							gv.addln(perceptron.getNeuronName(axons.get(j).getSource())	+ " [xlabel="+source.getActivationValue()+"];");
+							gv.addln(perceptron.getNeuronName(axons.get(j).getTarget())	+ " [xlabel="+target.getActivationValue()+", color=red];");
+							gv.addln(perceptron.getNeuronName(axons.get(j).getSource())
 							+ " -> "
-							+ perceptron
-									.getNeuronName(axons.get(j).getTarget())
+							+ perceptron.getNeuronName(axons.get(j).getTarget())
 							+ "[ label="
 							+ String.valueOf(axonWeight) + " ];");
 				}

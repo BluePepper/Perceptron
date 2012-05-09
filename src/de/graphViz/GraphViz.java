@@ -84,7 +84,7 @@ public class GraphViz
     * Where is your dot program located? It will be called externally.
     */
    private static String DOT_MAC = "/usr/local/bin/dot";	// Mac
-   private static String DOT_LINUX = "/usr/bin/dot";	// Linux
+   private static String DOT_LINUX = "/usr/local/bin/dot";	// Linux
    private static String DOT_WINDOWS = "c:/Program Files/Graphviz/bin/dot.exe";	// Windows
    private static String DOT = null;
 
