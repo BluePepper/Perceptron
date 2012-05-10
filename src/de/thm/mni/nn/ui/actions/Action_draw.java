@@ -42,7 +42,6 @@ public class Action_draw extends Action {
 	 */
 	public Action_draw(DataStore ds, UserInterface ui) {
 		super(ds, ui);
-		// TODO Auto-generated constructor stub
 	}
 
 	/*
@@ -84,7 +83,7 @@ public class Action_draw extends Action {
 					gv.addln("node [color=red, fontcolor=red]");
 					gv.addln("forcelabels=true");
 							Neuron source = axons.get(j).getSource();
-							Neuron target = axons.get(j).getSource();
+							Neuron target = axons.get(j).getTarget();
 							gv.addln(perceptron.getNeuronName(source)	+ " [xlabel="+source.getActivationValue()+"];");
 							gv.addln(perceptron.getNeuronName(target)	+ " [xlabel="+target.getActivationValue()+", color=red];");
 							gv.addln(perceptron.getNeuronName(source)
@@ -116,7 +115,6 @@ public class Action_draw extends Action {
 	 */
 	@Override
 	public String getDescription() {
-		// TODO Auto-generated method stub
 		return "Draw the tree as an image! The installation of graphWiz is recommended!";
 	}
 

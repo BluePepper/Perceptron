@@ -22,11 +22,13 @@ public class Root {
 		activatedCommands.add("readfile");
 		activatedCommands.add("draw");
 		
-		// TODO: delete function 
+		// TODO: delete function for patterns and whole perceptrons
 		// TODO: dump for Patterns
 		// TODO: Help Command
+		// TODO: Test if there is a problem with neurons that aren't connected in propagation
 		// TODO: Train: Regression Function for learning rate
-		
+		// TODO: Console History
+		// TODO: Logging
 		
 		UserInterface ui = new UserInterface(activatedCommands, true);
 		Thread t = new Thread(ui);

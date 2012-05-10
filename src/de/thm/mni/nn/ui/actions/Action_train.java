@@ -15,9 +15,6 @@ import de.thm.mni.nn.ui.UserInterface;
  *
  */
 public class Action_train extends Action {
-
-	// TODO: LEarning Rate: einfache Version=feste learning rate; advanced: 
-	// pro train eigene lrearning rate; perfect: Abnehmende Funktion (zuerst hohe rate dann immer kleiner...)
 	
 	/**
 	 * @param ds

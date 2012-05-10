@@ -21,7 +21,6 @@ public class Action_add extends Action {
 	}
 
 	// TODO: LearningRate
-	// TODO: Threadsafe
 	
 	/**
 	 * This function chooses between adding and perceptron,
