@@ -1,6 +1,7 @@
 package de.thm.mni.nn.ui.actions;
 
 import de.thm.mni.nn.model.DataStore;
+import de.thm.mni.nn.perceptron.impl.ActivationCalculation;
 import de.thm.mni.nn.perceptron.impl.EActivationFunction;
 import de.thm.mni.nn.perceptron.impl.ENeuronType;
 import de.thm.mni.nn.perceptron.impl.Pattern;
@@ -135,8 +136,26 @@ public class Action_add extends Action {
 				System.out.println("No possible value! Aborting...");
 				return;
 			}
+			ActivationCalculation calculator  = new ActivationCalculation();
+			switch (actFunc) {
+			case Identity:
+				calculator.setupIdentity();
+				break;
+			case BoundedIdentity:
+				calculator.setupBoundedIdentity(0.0,1.0);
+				break;
+			case Threshold:
+				calculator.setupThreshold(1.0);
+				break;
+			case Logistic:
+				calculator.setupLogistic(1.0, 0.5);
+				break;
+			default:
+				throw new IllegalArgumentException(
+						"Activation Function not supported");
+			}
 			//Proof if the given perceptron name is the same as in the datastore
-			perceptron.addNeuron(layerRow, numberOfNeurons, neuronType, actFunc);
+			perceptron.addNeuron(layerRow, numberOfNeurons, neuronType, calculator);
 			System.out.println("Adding neurons to Perceptron");
 		} else if (args.equalsIgnoreCase("axon")) {
 			String perceptronName;

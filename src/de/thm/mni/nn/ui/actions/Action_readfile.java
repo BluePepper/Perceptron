@@ -3,7 +3,7 @@ package de.thm.mni.nn.ui.actions;
 import java.io.*;
 
 import de.thm.mni.nn.model.DataStore;
-import de.thm.mni.nn.perceptron.impl.EActivationFunction;
+import de.thm.mni.nn.perceptron.impl.ActivationCalculation;
 import de.thm.mni.nn.perceptron.impl.ENeuronType;
 import de.thm.mni.nn.perceptron.impl.Pattern;
 import de.thm.mni.nn.perceptron.impl.Perceptron;
@@ -53,7 +53,7 @@ public class Action_readfile extends Action {
 										+ p_name);
 					}
 					p = null;
-				} else if (ws[0].equals("N") && ws.length == 5 && p != null) {
+				} else if (ws[0].equals("N") && ws.length >= 5 && p != null) {
 					int layer = Integer.parseInt(ws[1]);
 					int count = Integer.parseInt(ws[2]);
 					ENeuronType type;
@@ -71,18 +71,26 @@ public class Action_readfile extends Action {
 						throw new IllegalArgumentException("Row " + rownr
 								+ ":Neurontype not supported");
 					}
-					EActivationFunction activationFunction;
-
+					ActivationCalculation calculator  = new ActivationCalculation();
 					switch (Integer.parseInt(ws[4])) {
 					case 0:
-						activationFunction = EActivationFunction.Identity;
+						calculator.setupIdentity();
+						break;
+					case 1:
+						calculator.setupBoundedIdentity(Double.parseDouble(ws[5]), Double.parseDouble(ws[6]));
+						break;
+					case 2:
+						calculator.setupThreshold(Double.parseDouble(ws[5]));
+						break;
+					case 3:
+						calculator.setupLogistic(Double.parseDouble(ws[5]), Double.parseDouble(ws[6]));
 						break;
 					default:
 						throw new IllegalArgumentException(
 								"Activation Function not supported");
 					}
-
-					p.addNeuron(layer, count, type, activationFunction);
+					
+					p.addNeuron(layer, count, type, calculator);
 				} else if (ws[0].equals("A") && ws.length == 5 && p != null) {
 					int startNeuronLayer = Integer.parseInt(ws[1]);
 					int startNeuronColumn = Integer.parseInt(ws[2]);

@@ -4,7 +4,11 @@
 P BEGIN NAME 2 0.0 1.0
 % Neurons Syntax: N layernumber numberOfNeurons Neurontype Activationfunction
 % Neurontypes: Input = 0, Hidden = 1, Output = 2.
-% Activationfunctions: Identity = 0.
+% Possible activation functions: (Following Functionspecifications have to follow blank-separated without brackets): 
+% Identity = 0
+% Bounded Identity = 1 (lower bound) (upper bound) 
+% Threshold = 2 (Threshold value)
+% Logistic = 3 (Threshold value) (Temperature factor)
 N 0 2 0 0
 N 1 1 2 0
 % Axons Syntax: A Startlayer Column EndLayer Column
@@ -15,7 +19,7 @@ P END
 % Next one
 P BEGIN UEBUNG 3 0.0 1.0
 N 0 2 0 0
-N 1 2 1 0
+N 1 2 1 3 0.5 1.0
 N 2 2 2 0
 A 0 0 1 0
 A 0 0 1 1

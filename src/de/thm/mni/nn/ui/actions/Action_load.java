@@ -1,7 +1,7 @@
 package de.thm.mni.nn.ui.actions;
 
 import de.thm.mni.nn.model.DataStore;
-import de.thm.mni.nn.perceptron.impl.EActivationFunction;
+import de.thm.mni.nn.perceptron.impl.ActivationCalculation;
 import de.thm.mni.nn.perceptron.impl.ENeuronType;
 import de.thm.mni.nn.perceptron.impl.Pattern;
 import de.thm.mni.nn.perceptron.impl.Perceptron;
@@ -20,10 +20,12 @@ public class Action_load extends Action {
 	
 	public void callAction(String args) {
 		if (args.equalsIgnoreCase("NeuNet")) {
+			ActivationCalculation calc = new ActivationCalculation();
+			calc.setupIdentity();
 			ui.printToConsole("Loading NeuNet...");
 			Perceptron perc = new Perceptron(2);
-			perc.addNeuron(0, 2, ENeuronType.Input, EActivationFunction.Identity);
-			perc.addNeuron(1, 1, ENeuronType.Output, EActivationFunction.Identity);
+			perc.addNeuron(0, 2, ENeuronType.Input, calc);
+			perc.addNeuron(1, 1, ENeuronType.Output, calc);
 			perc.addAxon(0, 0, 1, 0);
 			perc.addAxon(0, 1, 1, 0);
 			
@@ -41,10 +43,12 @@ public class Action_load extends Action {
 			//perc.train(p);
 			
 		} else if(args.equalsIgnoreCase("TestNet")){
+			ActivationCalculation calc = new ActivationCalculation();
+			calc.setupIdentity();
 			Perceptron perc = new Perceptron(3);
-			perc.addNeuron(0, 3, ENeuronType.Input, EActivationFunction.Identity);
-			perc.addNeuron(1, 2, ENeuronType.Hidden, EActivationFunction.Identity);
-			perc.addNeuron(2, 1, ENeuronType.Output, EActivationFunction.Identity);
+			perc.addNeuron(0, 3, ENeuronType.Input, calc);
+			perc.addNeuron(1, 2, ENeuronType.Hidden, calc);
+			perc.addNeuron(2, 1, ENeuronType.Output, calc);
 			perc.addAxon(0, 0, 1, 0);
 			perc.addAxon(0, 1, 1, 0);
 			perc.addAxon(0, 2, 1, 0);

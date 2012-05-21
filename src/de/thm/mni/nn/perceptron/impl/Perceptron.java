@@ -1,5 +1,6 @@
 package de.thm.mni.nn.perceptron.impl;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -79,17 +80,16 @@ public class Perceptron {
 	 * @param layer The Neurons where added to this Layer
 	 * @param count number of Neurons to add
 	 * @param type Type of Neurons to add
-	 * @param activationFunction Used ActivationFunction of the added Neurons
+	 * @param calculator Used Activation Function of the added Neurons, packed in an Object. (Should be set up by this time!) 
 	 */
-	public void addNeuron(Integer layer, Integer count, ENeuronType type, EActivationFunction activationFunction) {
+	public void addNeuron(Integer layer, Integer count, ENeuronType type, ActivationCalculation calculator) {
 		if (layer >= neurons.size()) {
 			throw new IndexOutOfBoundsException("This Perceptron stores only " + (neurons.size()) + " Layers!");
 		}
 		for (int i = 0; i < count; i++) {
-			this.neurons.get(layer).add(new Neuron(activationFunction, type));
+			this.neurons.get(layer).add(new Neuron(calculator, type));
 		}
 	}
-	
 	//TODO: Function to add an Axon and hand preset weight over.
 	
 	/**
@@ -168,8 +168,10 @@ public class Perceptron {
 		
 		// get result by looping over OutputNeurons
 		List<Neuron> outputNeurons = neurons.get(neurons.size()-1);
+		DecimalFormat df = new DecimalFormat("0.00");
 		for (Neuron neuron : outputNeurons) {
-			System.out.println("output Value: " + neuron.getActivationValue());
+			
+			System.out.println("output Value: " + df.format(neuron.getActivationValue()));
 		}
 	}
 	/**

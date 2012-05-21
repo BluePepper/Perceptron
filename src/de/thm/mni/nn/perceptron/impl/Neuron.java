@@ -1,5 +1,6 @@
 package de.thm.mni.nn.perceptron.impl;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -21,27 +22,7 @@ public class Neuron {
 	 */
 	private double activationValue = 1.0;
 
-	/**
-	 * Defines an upper border for the activation Value if used activation
-	 * function needs it.
-	 */
-	private double activationValueUpperBound = 0.0;
 
-	/**
-	 * Defines an lower border for the activation Value if used activation
-	 * function needs it.
-	 */
-	private double activationValueLowerBound = 0.0;
-
-	/**
-	 * Temperature Value for logistical activationfunction calculation.
-	 */
-	private double temperatureValue = 0.0;
-
-	/**
-	 * Threshold value for different activationvalue calculations.
-	 */
-	private double threshold = 0.0;
 	/**
 	 * Specifies the actual Delta of the Neuron. Used in Backpropagation while
 	 * Training.
@@ -60,23 +41,13 @@ public class Neuron {
 	private ArrayList<Axon> incomingDendrites;
 
 	/**
-	 * Activation Function used by the Neuron.
-	 */
-	private EActivationFunction activationFunction;
-
-	/**
 	 * Specification of the Neurons type.
 	 */
 	private ENeuronType neuronType;
 
-	/**
-	 * Getter-Method for the Activation-Function used by the Neuron.
-	 * 
-	 * @return the activationFunction
-	 */
-	public EActivationFunction getActivationFunction() {
-		return activationFunction;
-	}
+	private ActivationCalculation myCalculator;
+	
+	
 
 	/**
 	 * Getter Method for the Neuron Type.
@@ -94,27 +65,13 @@ public class Neuron {
 	 * Constructor to be used for creating new Neurons. Adds the new Neuron to
 	 * the given Perceptrons Neuron-List for later usage. This
 	 * 
-	 * @param activationFunction
-	 *            The Activation Function used by the Neuron.
+	 * @param calculator
+	 *            ActivationCalculation object that is preset to the right values to calculate the Activation Value.
 	 * @param neuronType
 	 *            Specifies the Type of the Neuron (INPUT, OUTPUT, HIDDEN)
 	 */
-	public Neuron(EActivationFunction activationFunction, ENeuronType neuronType) {
-		this.activationFunction = activationFunction;
-		this.neuronType = neuronType;
-		this.incomingDendrites = new ArrayList<Axon>();
-	}
-
-	/**
-	 * 
-	 * @param activationFunction
-	 * @param low
-	 * @param high
-	 * @param neuronType
-	 */
-	public Neuron(EActivationFunction activationFunction, double low,
-			double high, ENeuronType neuronType) {
-		this.activationFunction = activationFunction;
+	public Neuron(ActivationCalculation calculator, ENeuronType neuronType) {
+		myCalculator = calculator;
 		this.neuronType = neuronType;
 		this.incomingDendrites = new ArrayList<Axon>();
 	}
@@ -124,6 +81,7 @@ public class Neuron {
 
 	// INSTANCE-METHODS PRIVATE
 	// *****************************************************************************************
+
 
 	/**
 	 * Calculates the output of the Neuron by using the specified Activation
@@ -140,16 +98,7 @@ public class Neuron {
 			return this.activationValue;
 		}
 		calculateNetInput();
-
-		switch(this.activationFunction){
-		case Identity:
-			return ActivationCalculation.Identity(net_input);
-		case Logistic:
-			return ActivationCalculation.Logistic(net_input, threshold, temperatureValue);
-		//TODO: Implement the other ACT Functions.
-		}
-		
-		return 0.00;
+		return myCalculator.calculateActivation(net_input);
 	}
 
 	/**
@@ -218,7 +167,8 @@ public class Neuron {
 	 */
 	public void propagateMe() {
 		this.activationValue = this.calculateOutput();
-		System.out.println("My Activation Value: " + this.activationValue);
+		DecimalFormat df = new DecimalFormat("0.00");
+		System.out.println("My Activation Value: " + df.format(this.activationValue));
 	}
 
 	/**
@@ -270,7 +220,6 @@ public class Neuron {
 					* ax.getSource().getActivationValue() * this.myDelta;
 			ax.setWeight(ax.getWeight() + newWeight);
 		}
-		// TODO: Find out why we don't need new Weight Attribute!
 	}
 
 	/**
@@ -294,81 +243,6 @@ public class Neuron {
 		return this.incomingDendrites;
 	}
 
-	/**
-	 * Getter Method for the Temperatur Value
-	 * 
-	 * @return Temperatur Value of the Neuron
-	 */
-	public double getTemperatureValue() {
-		return temperatureValue;
-	}
 
-	/**
-	 * Sets the temperature Value of the Neuron
-	 * 
-	 * @param temperatureValue
-	 *            Temperatur to set.
-	 */
-	public void setTemperatureValue(double temperatureValue) {
-		this.temperatureValue = temperatureValue;
-	}
-
-	/**
-	 * Getter Method for the threshold value.
-	 * 
-	 * @return threshold value of the Neuron.
-	 */
-	public double getThreshold() {
-		return threshold;
-	}
-
-	/**
-	 * Sets the threshold for the neuron
-	 * 
-	 * @param threshold
-	 *            Threshold value to set.
-	 */
-	public void setThreshold(double threshold) {
-		this.threshold = threshold;
-	}
-
-	/**
-	 * Getter Method for the lower bound value for different activation
-	 * functions
-	 * 
-	 * @return The neurons lower activation bound.
-	 */
-	public double getActivationValueLowerBound() {
-		return activationValueLowerBound;
-	}
-
-	/**
-	 * Sets the lower bound of the neuron.
-	 * 
-	 * @param activationValueLowerBound
-	 *            Lower bound of the neuron to set.
-	 */
-	public void setActivationValueLowerBound(double activationValueLowerBound) {
-		this.activationValueLowerBound = activationValueLowerBound;
-	}
-
-	/**
-	 * Getter Method of the neurons upper activation bound.
-	 * 
-	 * @return The neurons upper activation bound.
-	 */
-	public double getActivationValueUpperBound() {
-		return activationValueUpperBound;
-	}
-
-	/**
-	 * Sets the neurons upper activation bound.
-	 * 
-	 * @param activationValueUpperBound
-	 *            Activation value to set as upper bound for the neuron.
-	 */
-	public void setActivationValueUpperBound(double activationValueUpperBound) {
-		this.activationValueUpperBound = activationValueUpperBound;
-	}
 
 }
