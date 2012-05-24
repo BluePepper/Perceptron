@@ -9,7 +9,6 @@ public interface IUIAction {
 	/**
 	 * The callAction Method executes the Action.
 	 * The returned String is displayed on the Commandline
-	 * @return response String
 	 */
 	void callAction(String args);
 	String getDescription();
