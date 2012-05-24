@@ -30,6 +30,10 @@ public class Action_readfile extends Action {
 		String p_name = "";
 		String pt_name = "";
 		int rownr = 0;
+		if(args == null) {
+			ui.printToConsole("Error: Syntax is readfile <filename>");
+			return;
+		}
 		try {
 			BufferedReader in = new BufferedReader(new FileReader(args));
 			String zeile = null;
@@ -135,6 +139,7 @@ public class Action_readfile extends Action {
 									.println("There is already a Pattern named "
 											+ pt_name);
 						}
+						pt = null;
 					} else
 						throw new IllegalArgumentException(
 								"There is no open Pattern");
