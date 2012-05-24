@@ -29,6 +29,10 @@ public class Action_list extends Action {
 	 */
 	@Override
 	public void callAction(String args) { //list [Pattern, Perceptrons]
+		if (args == null) {
+			ui.printToConsole("Error: Syntax is list [patterns|perceptrons]");
+			return;
+		}
 		if (args.equalsIgnoreCase("Patterns")) {
 			Set<String> patternNames = ds.getPatternNames();
 			if (patternNames.size() == 0) {
