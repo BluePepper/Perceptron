@@ -1,0 +1,34 @@
+% Neuronal Network Input File
+% ------------------------------------------------------
+% Perceptrons Syntax: P BEGIN Name layers minSeed maxSeed
+P BEGIN UEBUNG3 2 0.0 1.0
+% Neurons Syntax: N layernumber numberOfNeurons Neurontype Activationfunction
+% Neurontypes: Input = 0, Hidden = 1, Output = 2.
+% Possible activation functions: (Following Functionspecifications have to follow blank-separated without brackets): 
+% Identity = 0, BoundedIdentity = 1, Treshold = 2, Logistic = 3
+% Bounded Identity = 1 (lower bound) (upper bound) 
+% Threshold = 2 (Threshold value)
+% Logistic = 3 (Threshold value) (Temperature factor)
+N 0 2 0 0
+N 1 1 2 0
+% Axons Syntax: A Startlayer Column EndLayer Column
+A 0 0 1 0
+A 0 1 1 0
+% P END marks the end of a perceptron.
+P END
+T BEGIN PAT1
+T IN 0 0
+T OUT 0
+T END
+T BEGIN PAT2
+T IN 0 1
+T OUT 1
+T END
+T BEGIN PAT3
+T IN 1 0
+T OUT 1
+T END
+T BEGIN PAT4
+T IN 1 1
+T OUT 1
+T END

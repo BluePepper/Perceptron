@@ -13,7 +13,7 @@ public class Root {
 		List<String> activatedCommands = new ArrayList<String>();
 		
 		activatedCommands.add("exit");
-		activatedCommands.add("load");
+		//activatedCommands.add("load"); // Temp disabled; not used since readfile
 		activatedCommands.add("add");
 		activatedCommands.add("propagate");
 		activatedCommands.add("list");
@@ -29,6 +29,7 @@ public class Root {
 		// TODO: Train: Regression Function for learning rate
 		// TODO: Console History
 		// TODO: Logging
+		// TODO: Training Function is set for each train seperately
 		
 		UserInterface ui = new UserInterface(activatedCommands, true);
 		Thread t = new Thread(ui);
