@@ -73,24 +73,28 @@ public class Action_draw extends Action {
 				Neuron src = perceptron.getNeuron(i, s);
 				List<Axon> axons = src.getMyDendritesAsList();
 				for (int j = 0; j < axons.size(); j++) {
-
+					Neuron source = axons.get(j).getSource();
+					Neuron target = axons.get(j).getTarget();
 					/* It's recommended to install graphViz version >= 2.29 to get
 					 * the view of the activationValue working.
 					 */
 					double axonWeight = axons.get(j).getWeight();
-					axonWeight = Math.round(axonWeight*1000)/1000d;
+					double sourceActivationValue = source.getActivationValue();
+					double targetActivationValue = 	target.getActivationValue();
+					axonWeight = roundWegiht(axonWeight);
+					sourceActivationValue = roundWegiht(sourceActivationValue);
+					targetActivationValue = roundWegiht(targetActivationValue);
 					
 					gv.addln("node [color=red, fontcolor=red]");
 					gv.addln("forcelabels=true");
-							Neuron source = axons.get(j).getSource();
-							Neuron target = axons.get(j).getTarget();
-							gv.addln(perceptron.getNeuronName(source)	+ " [xlabel="+source.getActivationValue()+"];");
-							gv.addln(perceptron.getNeuronName(target)	+ " [xlabel="+target.getActivationValue()+", color=red];");
-							gv.addln(perceptron.getNeuronName(source)
-							+ " -> "
-							+ perceptron.getNeuronName(target)
-							+ "[ label="
-							+ String.valueOf(axonWeight) + " ];");
+					
+					gv.addln(perceptron.getNeuronName(source)	+ " [xlabel="+sourceActivationValue+"];");
+					gv.addln(perceptron.getNeuronName(target)	+ " [xlabel="+targetActivationValue+", color=red];");
+					gv.addln(perceptron.getNeuronName(source)
+					+ " -> "
+					+ perceptron.getNeuronName(target)
+					+ "[ label="
+					+ String.valueOf(axonWeight) + " ];");
 				}
 			}
 		}
@@ -106,6 +110,10 @@ public class Action_draw extends Action {
 		frame.getContentPane().add(panel);
 		frame.setSize(800, 800);
 		frame.setVisible(true);
+	}
+	
+	private double roundWegiht(double weight) {
+		return Math.round(weight*1000)/1000d;
 	}
 
 	/*
