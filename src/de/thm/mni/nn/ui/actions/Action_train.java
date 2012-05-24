@@ -51,6 +51,7 @@ public class Action_train extends Action {
 		for (int i = 0; i < training_count; i++){
 			perceptron.train(pattern);
 		}
+		ui.printToConsole("Pattern " + patternName + " trained " + training_count + " times.");
 	}
 
 	/* (non-Javadoc)

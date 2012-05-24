@@ -49,7 +49,7 @@ public class Action_propagate extends Action {
 			return;
 		}		
 		
-		perceptron.propagate(pattern);
+		perceptron.propagate(pattern, true);
 		
 	}
 
