@@ -157,7 +157,7 @@ public class Action_add extends Action {
 			perceptron.addNeuron(layerRow, numberOfNeurons, neuronType, calculator);
 			System.out.println("Adding neurons to Perceptron");
 		} else if (args.equalsIgnoreCase("axon")) {
-			String perceptronName;
+			String perceptronName, feedForwardDecision;
 			int inputLayer, inputNeuron, outputLayer, outputNeuron;
 
 			System.out.print("Adding the axon to this perceptron: ");
@@ -169,6 +169,16 @@ public class Action_add extends Action {
 				System.out.println("Aborting... There isn't any perceptron with the given name");
 				return;
 			}
+			
+			System.out.println("Would you like to feed-forward your perceptron? [y/n]");
+			feedForwardDecision = ui.inputToString();
+			if (feedForwardDecision.charAt(0) == 'y' || feedForwardDecision.charAt(0) == 'Y') {
+				perceptron.feedforward();
+				System.out.println("The perceptron is now feed-forwarded");
+				return;
+			}
+			
+			
 			System.out.print("Source row of the perceptron layer: ");
 			inputLayer = ui.inputToInt();
 			

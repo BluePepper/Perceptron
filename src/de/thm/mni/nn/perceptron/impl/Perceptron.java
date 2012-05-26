@@ -14,7 +14,7 @@ import java.util.List;
 public class Perceptron {
 	private List<List<Neuron>> neurons = new ArrayList<List<Neuron>>();
 	private Double seedmin, seedmax;
-	private Double learningRate = 0.8;
+	private Double learningRate = 0.2;
 
 	/**
 	 * Constructs a new Perceptron with the given number of Layers To provide
@@ -139,6 +139,54 @@ public class Perceptron {
 				startNeuronColumn);
 		Neuron endNeuron = neurons.get(endNeuronLayer).get(endNeuronColumn);
 		new Axon(startNeuron, endNeuron, this.seedmin, this.seedmax); // the
+																		// Connection
+																		// between
+																		// endNeuron
+																		// an
+																		// Axon
+																		// is
+																		// handled
+																		// in
+																		// the
+																		// Axon
+																		// Constructor
+	}
+	
+	/**
+	 * Adds a Axon to the Perceptron. The Start and End-Neuron is identificated
+	 * by the Layer and the Column of the Neuron
+	 * 
+	 * @param startNeuronLayer
+	 *            Layer of Start Neuron
+	 * @param startNeuronColumn
+	 *            Column of Start Neuron
+	 * @param endNeuronLayer
+	 *            Layer of End Neuron
+	 * @param endNeuronColumn
+	 *            Column of End Neuron
+	 * @throws IllegalArgumentException
+	 *             if any of the Columns or Layers are out of Bounds.
+	 *             Errormessage included!
+	 */
+	public void feedforward() {
+		for(int i = 0; i<neurons.size()-1;i++) {
+			for(Neuron startNeuron : neurons.get(i)) {
+				for(Neuron endNeuron : neurons.get(i+1)) {
+					new Axon(startNeuron, endNeuron, this.seedmin, this.seedmax);
+				}
+			}
+		}
+			
+		//if (startNeuronLayer >= neurons.size()
+		//		|| endNeuronLayer >= neurons.size()) {
+		//	throw new IllegalArgumentException(
+		//			"Start or End Layer equals not the size of the Perceptron.");
+		//}
+		// TODO: Check Columns!
+		//Neuron startNeuron = neurons.get(startNeuronLayer).get(
+		//		startNeuronColumn);
+		//Neuron endNeuron = neurons.get(endNeuronLayer).get(endNeuronColumn);
+		//new Axon(startNeuron, endNeuron, this.seedmin, this.seedmax); // the
 																		// Connection
 																		// between
 																		// endNeuron
