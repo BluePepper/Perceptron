@@ -18,13 +18,13 @@ public class OilParser {
 	public static void main(String[] args) {
 		FileInputStream fstream;
 		try {
-			fstream = new FileInputStream(new File("oliveOilsTRAIN.dat"));
+			fstream = new FileInputStream(new File("oliveOilsTEST.dat"));
 
 		DataInputStream in = new DataInputStream(fstream);
 		BufferedReader br = new BufferedReader(new InputStreamReader(in));
 		String strLine;
 		
-		File outfile = new File("oliveOilsTRAIN.nn");
+		File outfile = new File("oliveOilsTEST.nn");
 		FileWriter writer = new FileWriter(outfile ,true);
 		
 		Pattern pat = Pattern.compile("(\\d*\\.\\d+) (\\d*\\.\\d+) (\\d*\\.\\d+) (\\d*\\.\\d+) (\\d*\\.\\d+) (\\d*\\.\\d+) (\\d*\\.\\d+) (\\d*\\.\\d+) (\\d) (\\d) (\\d) (\\d) (\\d) (\\d) (\\d) (\\d) (\\d)");
@@ -37,7 +37,7 @@ public class OilParser {
 					if(i == 1) {
 						writer.write("G IN");
 					}
-					if(i < 8) {
+					if(i < 9) {
 						writer.write(" " + mat.group(i));
 					} 
 					if (i == 8) {
