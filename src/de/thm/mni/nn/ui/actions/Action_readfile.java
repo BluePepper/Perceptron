@@ -132,7 +132,7 @@ public class Action_readfile extends Action {
 				} else if (ws[0].equals("T") && ws.length == 2
 						&& ws[1].equals("END")) {
 					if (pt != null) {
-						if (ds.addPattern(pt_name, pt)) {
+						if (ds.addPatternObject(pt_name, pt)) {
 							System.out.println("Added Pattern " + pt_name);
 						} else {
 							System.out

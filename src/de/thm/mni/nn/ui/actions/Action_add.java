@@ -4,6 +4,7 @@ import de.thm.mni.nn.model.DataStore;
 import de.thm.mni.nn.perceptron.impl.ActivationCalculation;
 import de.thm.mni.nn.perceptron.impl.EActivationFunction;
 import de.thm.mni.nn.perceptron.impl.ENeuronType;
+import de.thm.mni.nn.perceptron.impl.GroupPattern;
 import de.thm.mni.nn.perceptron.impl.Pattern;
 import de.thm.mni.nn.perceptron.impl.Perceptron;
 import de.thm.mni.nn.ui.Action;
@@ -220,6 +221,46 @@ public class Action_add extends Action {
 			}
 			//Proof if the given perceptron name is the same as in the datastore
 			perceptron.addAxon(inputLayer, inputNeuron, outputLayer, outputNeuron);
+		} else if (args.equalsIgnoreCase("group")) {
+			String groupName, patternName;
+			
+			System.out.print("Choose a group name: ");
+			groupName = ui.inputToString();
+			GroupPattern groupPattern;
+			if(ds.getPattern(groupName) == null) {
+				groupPattern = new GroupPattern();
+				groupPattern.addEmptyListOfPatternGroups(groupName);
+			} else if(ds.getPattern(groupName) instanceof GroupPattern){
+				groupPattern = (GroupPattern) ds.getPattern(groupName);
+			} else {
+				System.out.println("Aborting... The choosen name is already a pattern!");
+				return;
+			}
+			System.out.print("Name of the Pattern to add to the group: ");
+
+			do {
+				patternName = ui.inputToString();
+				if(ds.getPattern(patternName) == null) {
+					ui.printToConsole("Aborting... There is no Pattern named '" + patternName + "'.");
+					return;
+				} else {
+					if(ds.getPattern(patternName) instanceof Pattern) {
+						Pattern pattern = (Pattern) ds.getPattern(patternName);
+						groupPattern.addPatternsToPatternGroup(groupName, pattern);
+					}
+				}
+				System.out.println("add another pattern to this group? [y/n]");
+				String chooseToTrainAnother = ui.inputToString();
+				if(chooseToTrainAnother.charAt(0)=='y' || chooseToTrainAnother.charAt(0)=='Y'){
+					System.out.print("Name of the Pattern to add to the group: ");
+					continue;
+				}else {
+					break;
+				}
+			} while(true);
+			ds.addPatternObject(groupName, groupPattern);
+			System.out.println("Added the given group of patterns");
+			
 		} else if (args.equalsIgnoreCase("pattern")) {
 			String patternName;
 			int numberOfInputNeurons;
@@ -237,7 +278,7 @@ public class Action_add extends Action {
 				inputpattern[i] = ui.inputToDouble();
 			}
 			//Proof if the given pattern name is the same as in the datastore
-			if (ds.addPattern(patternName, new Pattern(inputpattern))) {
+			if (ds.addPatternObject(patternName, new Pattern(inputpattern))) {
 				System.out.print("No. of output neurons for the pattern: ");
 				int numberOfOutputNeurons = ui.inputToInt();
 				Double outputpattern[] = new Double[numberOfOutputNeurons];
@@ -247,7 +288,8 @@ public class Action_add extends Action {
 					System.out.print("pattern for " + (i+1) + ". Output-Neuron: ");
 					outputpattern[i] = ui.inputToDouble();
 				}
-				ds.getPattern(patternName).addOutputPattern(outputpattern);
+				Pattern patter = (Pattern) ds.getPattern(patternName);
+				patter.addOutputPattern(outputpattern);
 				
 				System.out.println("Added the given pattern");
 			} else {
@@ -257,6 +299,7 @@ public class Action_add extends Action {
 						
 		}
 	}
+	
 	
 	@Override
 	public String getDescription() {

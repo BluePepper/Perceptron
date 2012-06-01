@@ -6,6 +6,8 @@ package de.thm.mni.nn.ui.actions;
 import java.util.Set;
 
 import de.thm.mni.nn.model.DataStore;
+import de.thm.mni.nn.perceptron.impl.GroupPattern;
+import de.thm.mni.nn.perceptron.impl.Pattern;
 import de.thm.mni.nn.ui.Action;
 import de.thm.mni.nn.ui.UserInterface;
 
@@ -30,17 +32,20 @@ public class Action_list extends Action {
 	@Override
 	public void callAction(String args) { //list [Pattern, Perceptrons]
 		if (args == null) {
-			ui.printToConsole("Error: Syntax is list [patterns|perceptrons]");
+			ui.printToConsole("Error: Syntax is list [patterns|perceptrons|groups]");
 			return;
 		}
 		if (args.equalsIgnoreCase("Patterns")) {
-			Set<String> patternNames = ds.getPatternNames();
+			Set<String> patternNames = ds.getPatternNames2();
 			if (patternNames.size() == 0) {
 				ui.printToConsole("There are no Patterns available in the DataStore.");
 			} else {
-				ui.printToConsole("The following Patterns are available:\n");
+				ui.printToConsole("The following patterns are available:\n");
 				for(String name : patternNames) {
-					ui.printToConsole(name + "\n");
+					if(ds.getPattern(name) instanceof Pattern) 
+					{
+						ui.printToConsole(name + "\n");
+					}
 				}
 			}
 			
@@ -54,8 +59,21 @@ public class Action_list extends Action {
 					ui.printToConsole(name + "\n");
 				}
 			}
+		} else if (args.equalsIgnoreCase("Groups")) {
+			Set<String> patternNames = ds.getPatternNames2();
+			if (patternNames.size() == 0) {
+				ui.printToConsole("There are no Patterngroups available in the DataStore.");
+			} else {
+				ui.printToConsole("The following groups of patterns are available:\n");
+				for(String name : patternNames) {
+					if(ds.getPattern(name) instanceof GroupPattern) 
+					{
+						ui.printToConsole(name + "\n");
+					}
+				}
+			}
 		} else {
-			ui.printToConsole("Syntax Error: usage of list command: list [Pattern|Perceptrons]");
+			ui.printToConsole("Syntax Error: usage of list command: list [Patterns|Perceptrons|Groups]");
 		}
 
 	}

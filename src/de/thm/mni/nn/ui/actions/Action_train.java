@@ -6,6 +6,7 @@ package de.thm.mni.nn.ui.actions;
 import java.util.ArrayList;
 
 import de.thm.mni.nn.model.DataStore;
+import de.thm.mni.nn.perceptron.impl.GroupPattern;
 import de.thm.mni.nn.perceptron.impl.Pattern;
 import de.thm.mni.nn.perceptron.impl.Perceptron;
 import de.thm.mni.nn.ui.Action;
@@ -41,7 +42,7 @@ public class Action_train extends Action {
 			return;
 		}
 		
-		System.out.print("Name of the Pattern to use: ");
+		System.out.print("Name of the Pattern or Patterngroup to use: ");
 		
 		//Ask the user if he would train more pattern per training cycle
 		do {
@@ -50,12 +51,20 @@ public class Action_train extends Action {
 				ui.printToConsole("Aborting... There is no Pattern named '" + patternName + "'.");
 				return;
 			} else {
-				trainingPattern.add(ds.getPattern(patternName));
+				if (ds.getPattern(patternName) instanceof Pattern) {
+					trainingPattern.add((Pattern) ds.getPattern(patternName));
+				} else if(ds.getPattern(patternName) instanceof GroupPattern) {
+					GroupPattern groupPattern = (GroupPattern) ds.getPattern(patternName);
+					for(Pattern pattern : groupPattern.getAllPatternsOfGroup(patternName)) {
+						trainingPattern.add(pattern);
+					}
+				}
+				
 			}
-			System.out.println("Train another pattern with this perceptron? [y/n]");
+			System.out.println("Train another pattern or group with this perceptron? [y/n]");
 			String chooseToTrainAnother = ui.inputToString();
 			if(chooseToTrainAnother.charAt(0)=='y' || chooseToTrainAnother.charAt(0)=='Y'){
-				System.out.print("Name of the Pattern to use: ");
+				System.out.print("Name of the Pattern or Patterngroup to use: ");
 				continue;
 			}else {
 				break;

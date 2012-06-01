@@ -4,6 +4,8 @@
 package de.thm.mni.nn.ui.actions;
 
 import de.thm.mni.nn.model.DataStore;
+import de.thm.mni.nn.perceptron.impl.EActivationFunction;
+import de.thm.mni.nn.perceptron.impl.GroupPattern;
 import de.thm.mni.nn.perceptron.impl.Pattern;
 import de.thm.mni.nn.perceptron.impl.Perceptron;
 import de.thm.mni.nn.ui.Action;
@@ -43,13 +45,20 @@ public class Action_propagate extends Action {
 		
 		System.out.print("Name of the Pattern to use the inputValues from: ");
 		patternName = ui.inputToString();
-		Pattern pattern = ds.getPattern(patternName);
-		if(pattern == null) {
+		Object patternObject = ds.getPattern(patternName);
+		if(patternObject instanceof Pattern) {
+			perceptron.propagate((Pattern) patternObject, true);
+		} else if(patternObject instanceof GroupPattern) {
+			GroupPattern groupPatter = (GroupPattern) patternObject;
+			for ( Pattern patter : groupPatter.getAllPatternsOfGroup(patternName)) {
+				perceptron.propagate(patter, true);
+			}
+		} else {
 			ui.printToConsole("Aborting... There is no Pattern named '" + patternName + "'.");
 			return;
 		}		
 		
-		perceptron.propagate(pattern, true);
+		
 		
 	}
 

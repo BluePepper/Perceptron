@@ -1,8 +1,11 @@
 package de.thm.mni.nn.ui.actions;
 
+import java.util.ArrayList;
+
 import de.thm.mni.nn.model.DataStore;
 import de.thm.mni.nn.perceptron.impl.ActivationCalculation;
 import de.thm.mni.nn.perceptron.impl.ENeuronType;
+import de.thm.mni.nn.perceptron.impl.GroupPattern;
 import de.thm.mni.nn.perceptron.impl.Pattern;
 import de.thm.mni.nn.perceptron.impl.Perceptron;
 import de.thm.mni.nn.ui.Action;
@@ -20,27 +23,71 @@ public class Action_load extends Action {
 	
 	public void callAction(String args) {
 		if (args.equalsIgnoreCase("NeuNet")) {
-			ActivationCalculation calc = new ActivationCalculation();
+			/*ActivationCalculation calc = new ActivationCalculation();
 			calc.setupIdentity();
 			ui.printToConsole("Loading NeuNet...");
 			Perceptron perc = new Perceptron(2);
 			perc.addNeuron(0, 2, ENeuronType.Input, calc);
 			perc.addNeuron(1, 1, ENeuronType.Output, calc);
 			perc.addAxon(0, 0, 1, 0);
-			perc.addAxon(0, 1, 1, 0);
+			perc.addAxon(0, 1, 1, 0);*/
 			
 			Double[] activationValues = new Double[2];
-			activationValues[0] = 1.0;
+			activationValues[0] = 0.0;
 			activationValues[1] = 0.0;
+			Double[] activationValues2 = new Double[2];
+			activationValues2[0] = 0.0;
+			activationValues2[1] = 1.0;
+			Double[] activationValues3 = new Double[2];
+			activationValues3[0] = 1.0;
+			activationValues3[1] = 0.0;
+			Double[] activationValues4 = new Double[2];
+			activationValues4[0] = 1.0;
+			activationValues4[1] = 1.0;
 			
 			Double[] outputValues = new Double[1];
 			outputValues[0] = 0.0;
+			Double[] outputValues2 = new Double[1];
+			outputValues2[0] = 1.0;
+
 			Pattern p = new Pattern(activationValues);
 			p.addOutputPattern(outputValues);
-			ds.addPattern("pattern1", p);
-			//perc.propagate(p);
+			ds.addPatternObject("pattern1", p);
 			
-			//perc.train(p);
+			Pattern p2 = new Pattern(activationValues2);
+			p2.addOutputPattern(outputValues2);
+			ds.addPatternObject("pattern2", p2);
+			
+			Pattern p3 = new Pattern(activationValues3);
+			p3.addOutputPattern(outputValues2);
+			ds.addPatternObject("pattern3", p3);
+			
+			Pattern p4 = new Pattern(activationValues4);
+			p4.addOutputPattern(outputValues2);
+			ds.addPatternObject("pattern4", p4);
+			
+			GroupPattern gp = new GroupPattern();
+			gp.addEmptyListOfPatternGroups("gruppe1");
+			//Hinzufügen einzelner Patterns zu einer gegebenen Patterngruppe:
+			gp.addPatternsToPatternGroup("gruppe1", p);
+			gp.addPatternsToPatternGroup("gruppe1", p2);
+			gp.addPatternsToPatternGroup("gruppe1", p3);
+			gp.addPatternsToPatternGroup("gruppe1", p4);
+			
+			ArrayList<Pattern> gruppenListe = new ArrayList<Pattern>();
+			gruppenListe.add(p); 
+			gruppenListe.add(p2);
+			gruppenListe.add(p3); 
+			gruppenListe.add(p4);
+			
+			gp.addEmptyListOfPatternGroups("gruppe2");
+			//Hinzufügen einer kompletten ArrayListe zu einer gegeben Patterngruppe:
+			gp.addArrayListOfPatternsToGroup("gruppe2", gruppenListe);
+			
+			
+			//Füge anschließend die gruppenPattern dem Datastore hinzu
+			ds.addPatternObject("gruppe1", gp);
+			ds.addPatternObject("gruppe2", gp);
 			
 		} else if(args.equalsIgnoreCase("TestNet")){
 			ActivationCalculation calc = new ActivationCalculation();
