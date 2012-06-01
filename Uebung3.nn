@@ -16,20 +16,13 @@ A 0 0 1 0
 A 0 1 1 0
 % P END marks the end of a perceptron.
 P END
-T BEGIN PAT1
-T IN 0 0
-T OUT 0
-T END
-T BEGIN PAT2
-T IN 0 1
-T OUT 1
-T END
-T BEGIN PAT3
-T IN 1 0
-T OUT 1
-T END
-T BEGIN PAT4
-T IN 1 1
-T OUT 1
-T END
-
+G BEGINGROUP Testgruppe
+G IN 0 0
+G OUT 0
+G IN 0 1
+G OUT 1
+G IN 1 0
+G OUT 1
+G IN 1 1
+G OUT 1
+G END

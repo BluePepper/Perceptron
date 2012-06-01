@@ -5,6 +5,7 @@ import java.io.*;
 import de.thm.mni.nn.model.DataStore;
 import de.thm.mni.nn.perceptron.impl.ActivationCalculation;
 import de.thm.mni.nn.perceptron.impl.ENeuronType;
+import de.thm.mni.nn.perceptron.impl.GroupPattern;
 import de.thm.mni.nn.perceptron.impl.Pattern;
 import de.thm.mni.nn.perceptron.impl.Perceptron;
 import de.thm.mni.nn.ui.Action;
@@ -14,8 +15,11 @@ public class Action_readfile extends Action {
 
 	/**
 	 * Constructor
-	 * @param ds Datastore to work on.
-	 * @param ui User interface to work on.
+	 * 
+	 * @param ds
+	 *            Datastore to work on.
+	 * @param ui
+	 *            User interface to work on.
 	 */
 	public Action_readfile(DataStore ds, UserInterface ui) {
 		super(ds, ui);
@@ -27,10 +31,11 @@ public class Action_readfile extends Action {
 	public void callAction(String args) {
 		Perceptron p = null;
 		Pattern pt = null;
+		GroupPattern pattern = null;
 		String p_name = "";
 		String pt_name = "";
 		int rownr = 0;
-		if(args == null) {
+		if (args == null) {
 			ui.printToConsole("Error: Syntax is readfile <filename>");
 			return;
 		}
@@ -75,25 +80,28 @@ public class Action_readfile extends Action {
 						throw new IllegalArgumentException("Row " + rownr
 								+ ":Neurontype not supported");
 					}
-					ActivationCalculation calculator  = new ActivationCalculation();
+					ActivationCalculation calculator = new ActivationCalculation();
 					switch (Integer.parseInt(ws[4])) {
 					case 0:
 						calculator.setupIdentity();
 						break;
 					case 1:
-						calculator.setupBoundedIdentity(Double.parseDouble(ws[5]), Double.parseDouble(ws[6]));
+						calculator.setupBoundedIdentity(
+								Double.parseDouble(ws[5]),
+								Double.parseDouble(ws[6]));
 						break;
 					case 2:
 						calculator.setupThreshold(Double.parseDouble(ws[5]));
 						break;
 					case 3:
-						calculator.setupLogistic(Double.parseDouble(ws[5]), Double.parseDouble(ws[6]));
+						calculator.setupLogistic(Double.parseDouble(ws[5]),
+								Double.parseDouble(ws[6]));
 						break;
 					default:
 						throw new IllegalArgumentException(
 								"Activation Function not supported");
 					}
-					
+
 					p.addNeuron(layer, count, type, calculator);
 				} else if (ws[0].equals("A") && ws.length == 5 && p != null) {
 					int startNeuronLayer = Integer.parseInt(ws[1]);
@@ -103,7 +111,7 @@ public class Action_readfile extends Action {
 
 					p.addAxon(startNeuronLayer, startNeuronColumn,
 							endNeuronLayer, endNeuronColumn);
-					
+
 				} else if (ws[0].equals("T") && ws.length == 3
 						&& ws[1].equals("BEGIN")) {
 					if (pt != null) {
@@ -143,11 +151,50 @@ public class Action_readfile extends Action {
 					} else
 						throw new IllegalArgumentException(
 								"There is no open Pattern");
+
+					// BEGIN OF GROUP
+				} else if (ws[0].equals("G") && ws[1].equals("BEGINGROUP")
+						&& ws.length > 2) {
+					pattern = new GroupPattern(ws[2]);
+
+					// END OF GROUP
+				} else if (ws[0].equals("G") && ws[1].equals("END")) {
+					if (pattern != null) {
+						ds.addPatternObject(pattern.getName(), pattern);
+						System.out.println("Added patterngroup "+ pattern.getName());
+						pattern = null;
+					} else
+						throw new IllegalArgumentException(
+								"No Patterngroup to be closed!");
+
+					// IN PART OF GROUP
+				} else if (ws[0].equals("G") && ws.length > 2
+						&& ws[1].equals("IN")) {
+					Double[] input = new Double[ws.length - 2];
+					for (int i = 2; i < ws.length; i++) {
+						input[i - 2] = Double.parseDouble(ws[i]);
+					}
+					if (pt == null)
+						pt = new Pattern(input);
+					else
+						throw new IllegalArgumentException(
+								"Already working on a Pattern!");
+
+					// OUT PART OF GROUP
+				} else if (ws[0].equals("G") && ws.length > 2
+						&& ws[1].equals("OUT")) {
+					if (pt != null) {
+						Double[] input = new Double[ws.length - 2];
+						for (int i = 2; i < ws.length; i++) {
+							input[i - 2] = Double.parseDouble(ws[i]);
+						}
+						pt.addOutputPattern(input);
+						pattern.addPattern(pt);
+						pt = null;
+					} else
+						throw new IllegalArgumentException(
+								"There is no open Pattern");
 				}
-
-				else if (!ws[0].equals("%"))
-					throw new IllegalArgumentException("Wrong row Format!");
-
 			}
 		} catch (IOException e) {
 			System.out.println("Inputfile not Found!");

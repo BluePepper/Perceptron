@@ -66,13 +66,13 @@ public class Action_load extends Action {
 			p4.addOutputPattern(outputValues2);
 			ds.addPatternObject("pattern4", p4);
 			
-			GroupPattern gp = new GroupPattern();
-			gp.addEmptyListOfPatternGroups("gruppe1");
+			GroupPattern gp = new GroupPattern("gruppe1");
+			
 			//Hinzufügen einzelner Patterns zu einer gegebenen Patterngruppe:
-			gp.addPatternsToPatternGroup("gruppe1", p);
-			gp.addPatternsToPatternGroup("gruppe1", p2);
-			gp.addPatternsToPatternGroup("gruppe1", p3);
-			gp.addPatternsToPatternGroup("gruppe1", p4);
+			gp.addPattern(p);
+			gp.addPattern(p2);
+			gp.addPattern(p3);
+			gp.addPattern(p4);
 			
 			ArrayList<Pattern> gruppenListe = new ArrayList<Pattern>();
 			gruppenListe.add(p); 
@@ -80,9 +80,7 @@ public class Action_load extends Action {
 			gruppenListe.add(p3); 
 			gruppenListe.add(p4);
 			
-			gp.addEmptyListOfPatternGroups("gruppe2");
-			//Hinzufügen einer kompletten ArrayListe zu einer gegeben Patterngruppe:
-			gp.addArrayListOfPatternsToGroup("gruppe2", gruppenListe);
+
 			
 			
 			//Füge anschließend die gruppenPattern dem Datastore hinzu

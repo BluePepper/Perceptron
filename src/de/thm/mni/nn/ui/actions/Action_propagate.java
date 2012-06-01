@@ -50,7 +50,7 @@ public class Action_propagate extends Action {
 			perceptron.propagate((Pattern) patternObject, true);
 		} else if(patternObject instanceof GroupPattern) {
 			GroupPattern groupPatter = (GroupPattern) patternObject;
-			for ( Pattern patter : groupPatter.getAllPatternsOfGroup(patternName)) {
+			for ( Pattern patter : groupPatter.getAllPatterns()) {
 				perceptron.propagate(patter, true);
 			}
 		} else {

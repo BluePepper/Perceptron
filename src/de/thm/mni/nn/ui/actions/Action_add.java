@@ -228,8 +228,7 @@ public class Action_add extends Action {
 			groupName = ui.inputToString();
 			GroupPattern groupPattern;
 			if(ds.getPattern(groupName) == null) {
-				groupPattern = new GroupPattern();
-				groupPattern.addEmptyListOfPatternGroups(groupName);
+				groupPattern = new GroupPattern(groupName);
 			} else if(ds.getPattern(groupName) instanceof GroupPattern){
 				groupPattern = (GroupPattern) ds.getPattern(groupName);
 			} else {
@@ -246,7 +245,7 @@ public class Action_add extends Action {
 				} else {
 					if(ds.getPattern(patternName) instanceof Pattern) {
 						Pattern pattern = (Pattern) ds.getPattern(patternName);
-						groupPattern.addPatternsToPatternGroup(groupName, pattern);
+						groupPattern.addPattern(pattern);
 					}
 				}
 				System.out.println("add another pattern to this group? [y/n]");

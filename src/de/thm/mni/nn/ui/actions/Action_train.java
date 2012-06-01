@@ -55,7 +55,7 @@ public class Action_train extends Action {
 					trainingPattern.add((Pattern) ds.getPattern(patternName));
 				} else if(ds.getPattern(patternName) instanceof GroupPattern) {
 					GroupPattern groupPattern = (GroupPattern) ds.getPattern(patternName);
-					for(Pattern pattern : groupPattern.getAllPatternsOfGroup(patternName)) {
+					for(Pattern pattern : groupPattern.getAllPatterns()) {
 						trainingPattern.add(pattern);
 					}
 				}

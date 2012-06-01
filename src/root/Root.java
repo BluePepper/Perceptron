@@ -13,7 +13,7 @@ public class Root {
 		List<String> activatedCommands = new ArrayList<String>();
 		
 		activatedCommands.add("exit");
-		activatedCommands.add("load"); // Temp disabled; not used since readfile
+		activatedCommands.add("load");
 		activatedCommands.add("add");
 		activatedCommands.add("propagate");
 		activatedCommands.add("list");
