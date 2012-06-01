@@ -103,6 +103,7 @@ public class Action_readfile extends Action {
 					}
 
 					p.addNeuron(layer, count, type, calculator);
+					// AXON BUILDING
 				} else if (ws[0].equals("A") && ws.length == 5 && p != null) {
 					int startNeuronLayer = Integer.parseInt(ws[1]);
 					int startNeuronColumn = Integer.parseInt(ws[2]);
@@ -111,6 +112,10 @@ public class Action_readfile extends Action {
 
 					p.addAxon(startNeuronLayer, startNeuronColumn,
 							endNeuronLayer, endNeuronColumn);
+					//FEED FORWARDING
+				} else if (ws[0].equals("A") && ws[1].equals("FEEDFORWARD")
+						&& ws.length >= 2 && p != null) {
+					p.feedforward();
 
 				} else if (ws[0].equals("T") && ws.length == 3
 						&& ws[1].equals("BEGIN")) {
@@ -161,7 +166,8 @@ public class Action_readfile extends Action {
 				} else if (ws[0].equals("G") && ws[1].equals("END")) {
 					if (pattern != null) {
 						ds.addPatternObject(pattern.getName(), pattern);
-						System.out.println("Added patterngroup "+ pattern.getName());
+						System.out.println("Added patterngroup "
+								+ pattern.getName());
 						pattern = null;
 					} else
 						throw new IllegalArgumentException(
