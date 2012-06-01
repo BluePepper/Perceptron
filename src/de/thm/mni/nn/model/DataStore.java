@@ -1,24 +1,21 @@
 package de.thm.mni.nn.model;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
 
-import de.thm.mni.nn.perceptron.impl.GroupPattern;
-import de.thm.mni.nn.perceptron.impl.Pattern;
 import de.thm.mni.nn.perceptron.impl.Perceptron;
 
 /**
- * A DataStore Object holds any value of Perceptrons and PAtterns.
- * The Perceptrons or Patterns are identified by a Name.
+ * A DataStore Object holds any value of Perceptrons and Patterns or groups of patterns.
+ * The Perceptrons, groups of patterns or Patterns are identified by a Name.
  * To get or set an entry the Name is needed.
  * @author Alexander Schulz
  *
  */
 public class DataStore {
 	private Map<String, Perceptron> perceptrons = new HashMap<String, Perceptron>();
-	private Map<String, Object> genericList = new HashMap<String, Object>();
+	private Map<String, Object> genericPatterList = new HashMap<String, Object>();
 	
 	/**
 	 * Adds a Perceptron to the Datastore.
@@ -38,10 +35,10 @@ public class DataStore {
 	
 	/**
 	 * Returns a Set of String holding all Pattern Names in the DataStore.
-	 * @return Set of all Pattern Names
+	 * @return Set of all generic Pattern Names
 	 */
-	public Set<String> getPatternNames2() {
-		return genericList.keySet();
+	public Set<String> getGenericPatternObjectNames() {
+		return genericPatterList.keySet();
 	}
 	
 	/**
@@ -67,30 +64,30 @@ public class DataStore {
 	}
 	
 	/**
-	 * Adds a Pattern to the Datastore.
+	 * Adds a Pattern object to the Datastore.
 	 * @param name the name of the Pattern
-	 * @param pattern The Pattern Object
+	 * @param pattern The Pattern Object (It could be an pattern or a group of patterns)
 	 * @return returns false if the name is already in use
 	 */
 	public boolean addPatternObject(String name, Object patternType) {
-		for (String a : genericList.keySet()) {
+		for (String a : genericPatterList.keySet()) {
 			if (name.equalsIgnoreCase(a)) {
 				return false;
 			}
 		}
-		genericList.put(name, patternType);
+		genericPatterList.put(name, patternType);
 		return true;
 	}
 	
 	/**
-	 * Get a Pattern from the DataStore
-	 * @param name the Name of the saved Perceptron
-	 * @return Returns the Perceptron. If the Name could not be found null is returned
+	 * Get a Pattern or a group of Patterns from the DataStore
+	 * @param name the Name of the saved generic pattern object
+	 * @return Returns the Pattern object. If the Name could not be found null is returned
 	 */
 	public Object getPattern(String name) {
-		for (String a : genericList.keySet()) {
+		for (String a : genericPatterList.keySet()) {
 			if (name.equalsIgnoreCase(a)) {
-				return genericList.get(a);
+				return genericPatterList.get(a);
 			}
 		}	
 		return null;

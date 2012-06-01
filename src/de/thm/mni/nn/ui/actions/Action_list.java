@@ -36,7 +36,7 @@ public class Action_list extends Action {
 			return;
 		}
 		if (args.equalsIgnoreCase("Patterns")) {
-			Set<String> patternNames = ds.getPatternNames2();
+			Set<String> patternNames = ds.getGenericPatternObjectNames();
 			if (patternNames.size() == 0) {
 				ui.printToConsole("There are no Patterns available in the DataStore.");
 			} else {
@@ -60,7 +60,7 @@ public class Action_list extends Action {
 				}
 			}
 		} else if (args.equalsIgnoreCase("Groups")) {
-			Set<String> patternNames = ds.getPatternNames2();
+			Set<String> patternNames = ds.getGenericPatternObjectNames();
 			if (patternNames.size() == 0) {
 				ui.printToConsole("There are no Patterngroups available in the DataStore.");
 			} else {
