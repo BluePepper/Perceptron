@@ -2,6 +2,8 @@ package root;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import de.thm.mni.nn.perceptron.impl.ActivationCalculation;
 import de.thm.mni.nn.ui.UserInterface;
 
 public class Root {
@@ -32,7 +34,6 @@ public class Root {
 		// TODO: 2 (Tobias) Rewrite Commands to single line
 		// TODO: 3 (Alex) Rewrite console outputs
 		// TODO: 2 (Tobias) Implement Pattern Groups in DUMP-Command
-		// TODO: 1 (Alex) Parse Input from Task 4
 		// TODO: 1 (Alex) Errorvalue implementation (in training)
 		// TODO: 3 (Alle) Documentation
 		// TODO: 1 (Alex) Code review for Patterngroups

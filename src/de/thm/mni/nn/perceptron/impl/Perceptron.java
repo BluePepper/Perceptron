@@ -247,35 +247,46 @@ public class Perceptron {
 	 * TODO: Javadoc
 	 */
 	public void propagate(Pattern p, boolean output) {
+		
 		// Test if the Pattern matches the Input Length (Output Length is
 		// irrelevant for propagate
 		if (!(neurons.get(0).size() == p.getInputLength())) {
 			throw new IllegalArgumentException(
 					"Given Pattern does not match Perceptrons number of Input Neurons!");
 		}
-
+		
 		// Set Activation Values
+		String inputVals = "Input values: ";
 		for (int i = 0; i < neurons.get(0).size(); i++) {
 			neurons.get(0).get(i).setActivationValue(p.getInputNeuronsSet()[i]);
+			inputVals += p.getInputNeuronsSet()[i] + " ";
 		}
-
+		if (output) System.out.println(inputVals);
+		
 		// Propagate by looping over all Layer except the first
 		// First Layer is ignored because there are no incoming Axons
 		for (int i = 1; i < neurons.size(); i++) {
 			for (Neuron neuron : neurons.get(i)) {
-				neuron.propagateMe(output);
+				neuron.propagateMe(false);
 			}
 		}
 
 		// get result by looping over OutputNeurons
+		
 		if (output) {
+			String outputVals = "Real output values: \t";
 			List<Neuron> outputNeurons = neurons.get(neurons.size() - 1);
 			DecimalFormat df = new DecimalFormat("0.00");
 			for (Neuron neuron : outputNeurons) {
 
-				System.out.println("output Value: "
-						+ df.format(neuron.getActivationValue()));
+				outputVals += df.format(neuron.getActivationValue())+ " ";
 			}
+			System.out.println(outputVals);
+			outputVals = "Expected output values: \t";
+			for (int i = 0; i < p.getOuputLength(); i++) {
+				outputVals += p.getOutputNeuronsSet()[i] + " ";
+			}
+			System.out.println(outputVals);
 		}
 	}
 

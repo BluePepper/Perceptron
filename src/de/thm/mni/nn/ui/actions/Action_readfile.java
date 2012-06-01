@@ -112,11 +112,11 @@ public class Action_readfile extends Action {
 
 					p.addAxon(startNeuronLayer, startNeuronColumn,
 							endNeuronLayer, endNeuronColumn);
-					//FEED FORWARDING
+					// FEED FORWARDING
 				} else if (ws[0].equals("A") && ws[1].equals("FEEDFORWARD")
 						&& ws.length >= 2 && p != null) {
 					p.feedforward();
-
+					// PATTERN BEGIN
 				} else if (ws[0].equals("T") && ws.length == 3
 						&& ws[1].equals("BEGIN")) {
 					if (pt != null) {
@@ -124,13 +124,16 @@ public class Action_readfile extends Action {
 								"There is already an open Pattern");
 					}
 					pt_name = ws[2];
+					// PATTERN IN-PART
 				} else if (ws[0].equals("T") && ws.length > 2
 						&& ws[1].equals("IN")) {
 					Double[] input = new Double[ws.length - 2];
 					for (int i = 2; i < ws.length; i++) {
 						input[i - 2] = Double.parseDouble(ws[i]);
 					}
+					
 					pt = new Pattern(input);
+					// PATTERN OUT-PART
 				} else if (ws[0].equals("T") && ws.length > 2
 						&& ws[1].equals("OUT")) {
 					if (pt != null) {
@@ -142,6 +145,7 @@ public class Action_readfile extends Action {
 					} else
 						throw new IllegalArgumentException(
 								"There is no open Pattern");
+					//PATTERN END
 				} else if (ws[0].equals("T") && ws.length == 2
 						&& ws[1].equals("END")) {
 					if (pt != null) {
