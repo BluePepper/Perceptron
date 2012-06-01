@@ -165,10 +165,10 @@ public class Neuron {
 	 * Calculates the Propagation for this Neuron. Uses the sum over all
 	 * Products between Axons Starting Point and the Axons Weight.
 	 */
-	public void propagateMe(boolean output) {
+	public void propagateMe(boolean debug) {
 		this.activationValue = this.calculateOutput();
 		DecimalFormat df = new DecimalFormat("0.00");
-		if (output) {
+		if (debug) {
 			System.out.println("My Activation Value: " + df.format(this.activationValue));
 		}
 	}
