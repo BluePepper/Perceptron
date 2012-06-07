@@ -261,7 +261,6 @@ public class Perceptron {
 			neurons.get(0).get(i).setActivationValue(p.getInputNeuronsSet()[i]);
 			inputVals += p.getInputNeuronsSet()[i] + " ";
 		}
-		if (output) System.out.println(inputVals);
 		
 		// Propagate by looping over all Layer except the first
 		// First Layer is ignored because there are no incoming Axons
@@ -296,14 +295,16 @@ public class Perceptron {
 	 * @param p
 	 */
 	public void train(Pattern p) {
+		
 		// propagate; set activation Values
 		this.propagate(p, false);
-
 		// run over all Layers from the bottom to the top; Except the Input
 		// Layer
 		// Backpropagation
 		for (int i = neurons.size() - 1; i > 0; i--) {
+
 			for (int s = 0; s < neurons.get(i).size(); s++) {
+
 				Neuron neuron = neurons.get(i).get(s);
 				if (neuron.getNeuronType() == ENeuronType.Output) {
 					neuron.calculateDeltaFunctionValuesForOutputNeuron(p
@@ -323,6 +324,7 @@ public class Perceptron {
 		for (int i = 1; i < neurons.size(); i++) {
 			for (Neuron neuron : neurons.get(i)) {
 				neuron.calculateNewWeightsForMyDendrites(learningRate);
+				
 			}
 		}
 

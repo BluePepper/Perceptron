@@ -20,8 +20,7 @@ public class Neuron {
 	 * Defines the Activationvalue of the Neuron. This is used when the Neuron
 	 * is of Type Input.
 	 */
-	private double activationValue = 1.0;
-
+	private double activationValue;
 
 	/**
 	 * Specifies the actual Delta of the Neuron. Used in Backpropagation while
@@ -97,19 +96,22 @@ public class Neuron {
 		if (this.neuronType == ENeuronType.Input) {
 			return this.activationValue;
 		}
-		calculateNetInput();
-		return myCalculator.calculateActivation(net_input);
+		double netInput = calculateNetInput();
+		double result =  myCalculator.calculateActivation(netInput);
+
+		return result;
 	}
 
 	/**
 	 * Calculates the Network Input of the Neuron by iterating over the
 	 * Dendrites.
 	 */
-	private void calculateNetInput() {
-		this.net_input = 0.0;
+	private double calculateNetInput() {
+		double rv = 0.0;
 		for (Axon ax : incomingDendrites) {
-			net_input += (ax.getWeight() * ax.getSource().getActivationValue());
+			rv += (ax.getWeight() * ax.getSource().getActivationValue());
 		}
+		return rv;
 	}
 
 	/**
@@ -119,7 +121,7 @@ public class Neuron {
 	 *            Value to add. Can be positive or negative.
 	 */
 	private void addDeltaValue(double additor) {
-		this.myDelta += additor;
+		this.myDelta += additor; 
 	}
 
 	// INSTANCE-METHODS PUBLIC
@@ -167,7 +169,7 @@ public class Neuron {
 	 */
 	public void propagateMe(boolean debug) {
 		this.activationValue = this.calculateOutput();
-		DecimalFormat df = new DecimalFormat("0.00");
+		DecimalFormat df = new DecimalFormat("0.000000000000");
 		if (debug) {
 			System.out.println("My Activation Value: " + df.format(this.activationValue));
 		}
@@ -190,6 +192,9 @@ public class Neuron {
 					"This function is only for the use with Output-Neurons! This is a "
 							+ this.neuronType.toString());
 		myDelta = teachingInput - this.activationValue;
+		for (Axon ax : this.incomingDendrites) {
+			ax.getSource().addDeltaValue(myDelta * ax.getWeight());
+		}
 	}
 
 	/**
@@ -205,9 +210,11 @@ public class Neuron {
 			throw new UnsupportedOperationException(
 					"This function is only for the use with Hidden-Neurons! This is a "
 							+ this.neuronType.toString());
+		System.out.println(myDelta);
 		for (Axon ax : this.incomingDendrites) {
 			ax.getSource().addDeltaValue(myDelta * ax.getWeight());
 		}
+		myDelta = 0.0;
 	}
 
 	/**

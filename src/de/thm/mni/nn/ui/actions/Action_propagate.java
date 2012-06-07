@@ -4,7 +4,6 @@
 package de.thm.mni.nn.ui.actions;
 
 import de.thm.mni.nn.model.DataStore;
-import de.thm.mni.nn.perceptron.impl.EActivationFunction;
 import de.thm.mni.nn.perceptron.impl.GroupPattern;
 import de.thm.mni.nn.perceptron.impl.Pattern;
 import de.thm.mni.nn.perceptron.impl.Perceptron;
@@ -52,7 +51,10 @@ public class Action_propagate extends Action {
 			GroupPattern groupPatter = (GroupPattern) patternObject;
 			for ( Pattern patter : groupPatter.getAllPatterns()) {
 				perceptron.propagate(patter, true);
-			}
+			} 
+			//perceptron.propagate(groupPatter.getAllPatterns().get(0),true);
+			//perceptron.propagate(groupPatter.getAllPatterns().get(1),true);
+			//perceptron.propagate(groupPatter.getAllPatterns().get(0),true);
 		} else {
 			ui.printToConsole("Aborting... There is no Pattern named '" + patternName + "'.");
 			return;

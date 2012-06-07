@@ -1,8 +1,6 @@
 package de.thm.mni.nn.perceptron.impl;
 
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
 
 /**
  * Class representing a list of grouped patterns

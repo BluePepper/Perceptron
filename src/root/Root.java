@@ -2,8 +2,6 @@ package root;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import de.thm.mni.nn.perceptron.impl.ActivationCalculation;
 import de.thm.mni.nn.ui.UserInterface;
 
 public class Root {
