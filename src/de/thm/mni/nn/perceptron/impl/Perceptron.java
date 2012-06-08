@@ -261,7 +261,7 @@ public class Perceptron {
 			neurons.get(0).get(i).setActivationValue(p.getInputNeuronsSet()[i]);
 			inputVals += p.getInputNeuronsSet()[i] + " ";
 		}
-System.out.println(inputVals);
+
 		// Propagate by looping over all Layer except the first
 		// First Layer is ignored because there are no incoming Axons
 		for (int i = 1; i < neurons.size(); i++) {
@@ -273,6 +273,7 @@ System.out.println(inputVals);
 		// get result by looping over OutputNeurons
 
 		if (output) {
+			System.out.println(inputVals);
 			String outputVals = "Real output values: \t";
 			List<Neuron> outputNeurons = neurons.get(neurons.size() - 1);
 			DecimalFormat df = new DecimalFormat("0.00");
