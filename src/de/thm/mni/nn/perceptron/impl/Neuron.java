@@ -29,12 +29,6 @@ public class Neuron {
 	private double myDelta = 0.0;
 
 	/**
-	 * The net_input value specifies the incoming Signals of all connected
-	 * Dendrites
-	 */
-	private double net_input;
-
-	/**
 	 * List of all Dendrites the Neuron is connected to.
 	 */
 	private ArrayList<Axon> incomingDendrites;
@@ -210,7 +204,6 @@ public class Neuron {
 			throw new UnsupportedOperationException(
 					"This function is only for the use with Hidden-Neurons! This is a "
 							+ this.neuronType.toString());
-		System.out.println(myDelta);
 		for (Axon ax : this.incomingDendrites) {
 			ax.getSource().addDeltaValue(myDelta * ax.getWeight());
 		}

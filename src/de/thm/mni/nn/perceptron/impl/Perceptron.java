@@ -151,7 +151,7 @@ public class Perceptron {
 																		// Axon
 																		// Constructor
 	}
-	
+
 	/**
 	 * Adds a Axon to the Perceptron. The Start and End-Neuron is identificated
 	 * by the Layer and the Column of the Neuron
@@ -169,35 +169,35 @@ public class Perceptron {
 	 *             Errormessage included!
 	 */
 	public void feedforward() {
-		for(int i = 0; i<neurons.size()-1;i++) {
-			for(Neuron startNeuron : neurons.get(i)) {
-				for(Neuron endNeuron : neurons.get(i+1)) {
+		for (int i = 0; i < neurons.size() - 1; i++) {
+			for (Neuron startNeuron : neurons.get(i)) {
+				for (Neuron endNeuron : neurons.get(i + 1)) {
 					new Axon(startNeuron, endNeuron, this.seedmin, this.seedmax);
 				}
 			}
 		}
-			
-		//if (startNeuronLayer >= neurons.size()
-		//		|| endNeuronLayer >= neurons.size()) {
-		//	throw new IllegalArgumentException(
-		//			"Start or End Layer equals not the size of the Perceptron.");
-		//}
+
+		// if (startNeuronLayer >= neurons.size()
+		// || endNeuronLayer >= neurons.size()) {
+		// throw new IllegalArgumentException(
+		// "Start or End Layer equals not the size of the Perceptron.");
+		// }
 		// TODO: Check Columns!
-		//Neuron startNeuron = neurons.get(startNeuronLayer).get(
-		//		startNeuronColumn);
-		//Neuron endNeuron = neurons.get(endNeuronLayer).get(endNeuronColumn);
-		//new Axon(startNeuron, endNeuron, this.seedmin, this.seedmax); // the
-																		// Connection
-																		// between
-																		// endNeuron
-																		// an
-																		// Axon
-																		// is
-																		// handled
-																		// in
-																		// the
-																		// Axon
-																		// Constructor
+		// Neuron startNeuron = neurons.get(startNeuronLayer).get(
+		// startNeuronColumn);
+		// Neuron endNeuron = neurons.get(endNeuronLayer).get(endNeuronColumn);
+		// new Axon(startNeuron, endNeuron, this.seedmin, this.seedmax); // the
+		// Connection
+		// between
+		// endNeuron
+		// an
+		// Axon
+		// is
+		// handled
+		// in
+		// the
+		// Axon
+		// Constructor
 	}
 
 	/**
@@ -247,21 +247,21 @@ public class Perceptron {
 	 * TODO: Javadoc
 	 */
 	public void propagate(Pattern p, boolean output) {
-		
+
 		// Test if the Pattern matches the Input Length (Output Length is
 		// irrelevant for propagate
 		if (!(neurons.get(0).size() == p.getInputLength())) {
 			throw new IllegalArgumentException(
 					"Given Pattern does not match Perceptrons number of Input Neurons!");
 		}
-		
+
 		// Set Activation Values
 		String inputVals = "Input values: ";
 		for (int i = 0; i < neurons.get(0).size(); i++) {
 			neurons.get(0).get(i).setActivationValue(p.getInputNeuronsSet()[i]);
 			inputVals += p.getInputNeuronsSet()[i] + " ";
 		}
-		
+System.out.println(inputVals);
 		// Propagate by looping over all Layer except the first
 		// First Layer is ignored because there are no incoming Axons
 		for (int i = 1; i < neurons.size(); i++) {
@@ -271,14 +271,14 @@ public class Perceptron {
 		}
 
 		// get result by looping over OutputNeurons
-		
+
 		if (output) {
 			String outputVals = "Real output values: \t";
 			List<Neuron> outputNeurons = neurons.get(neurons.size() - 1);
 			DecimalFormat df = new DecimalFormat("0.00");
 			for (Neuron neuron : outputNeurons) {
 
-				outputVals += df.format(neuron.getActivationValue())+ " ";
+				outputVals += df.format(neuron.getActivationValue()) + " ";
 			}
 			System.out.println(outputVals);
 			outputVals = "Expected output values: \t";
@@ -295,7 +295,7 @@ public class Perceptron {
 	 * @param p
 	 */
 	public void train(Pattern p) {
-		
+
 		// propagate; set activation Values
 		this.propagate(p, false);
 		// run over all Layers from the bottom to the top; Except the Input
@@ -324,7 +324,7 @@ public class Perceptron {
 		for (int i = 1; i < neurons.size(); i++) {
 			for (Neuron neuron : neurons.get(i)) {
 				neuron.calculateNewWeightsForMyDendrites(learningRate);
-				
+
 			}
 		}
 
