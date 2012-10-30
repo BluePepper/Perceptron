@@ -52,9 +52,6 @@ public class Action_propagate extends Action {
 			for ( Pattern patter : groupPatter.getAllPatterns()) {
 				perceptron.propagate(patter, true);
 			} 
-			//perceptron.propagate(groupPatter.getAllPatterns().get(0),true);
-			//perceptron.propagate(groupPatter.getAllPatterns().get(1),true);
-			//perceptron.propagate(groupPatter.getAllPatterns().get(0),true);
 		} else {
 			ui.printToConsole("Aborting... There is no Pattern named '" + patternName + "'.");
 			return;
